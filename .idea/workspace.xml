@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2331ffc6-2bbc-491a-94a7-c9d4086df728" name="Changes" comment="Cine">
+      <change beforePath="$PROJECT_DIR$/../../../../3.Tercer semestre/tecnicas de programacion 2/ProyectoFinal/SistemaReservas Fullstack/sistemaReservas" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../3.Tercer semestre/tecnicas de programacion 2/ProyectoFinal/SistemaReservas Fullstack/sistemaReservas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../3.Tercer semestre/tecnicas de programacion 2/ProyectoFinal/sistemaReservasFullstack/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../3.Tercer semestre/tecnicas de programacion 2/ProyectoFinal/sistemaReservasFullstack/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../3.Tercer semestre/tecnicas de programacion 2/ProyectoFinal/sistemaReservasFullstack/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../3.Tercer semestre/tecnicas de programacion 2/ProyectoFinal/sistemaReservasFullstack/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../3.Tercer semestre/tecnicas de programacion 2/ProyectoFinal/sistemaReservasFullstack/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../3.Tercer semestre/tecnicas de programacion 2/ProyectoFinal/sistemaReservasFullstack/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../3.Tercer semestre/tecnicas de programacion 2/ProyectoFinal/sistemaReservasFullstack/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../3.Tercer semestre/tecnicas de programacion 2/ProyectoFinal/sistemaReservasFullstack/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../3.Tercer semestre/tecnicas de programacion 2/ProyectoFinal/sistemaReservasFullstack/sistemaReservas.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/controller/AplMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/controller/AplMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/controller/ControllerProducto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/controller/ControllerProducto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/controller/ControllerProveedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/controller/ControllerProveedor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/Alquiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/Alquiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/Producto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/personas/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/personas/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/personas/MetodosEmpleado.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosAlquiler/Caminadora.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosAlquiler/Caminadora.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosAlquiler/Muletas.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosAlquiler/Muletas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosAlquiler/SillaDeRuedas.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosAlquiler/SillaDeRuedas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosSoloVenta/Canula.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosSoloVenta/Canula.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosSoloVenta/CuelloOrtopedico.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosSoloVenta/CuelloOrtopedico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosSoloVenta/Glucometro.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosSoloVenta/Glucometro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosSoloVenta/MediasCompresion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosSoloVenta/MediasCompresion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosSoloVenta/SillaDucha.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/model/productosSoloVenta/SillaDucha.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/view/ViewPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/view/ViewPersona.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/view/ViewProducto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Tercer semestre/tecnicas de programacion 2/proyectoTiendaMedic/src/co/edu/konradlorenz/view/ViewProducto.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Samuelalejo18"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Samuelalejo18/Sistem_ReservasMVC_DAO.git",
+    "accountId": "887c2167-17ec-472a-be8b-38f701340f7f"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2sd5GdJIRozSRmSuIPnWgShBTl6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Universidad/5.Quinto semestre/NUEVAS TECNOLOGÍAS DE DESARROLLO/Semana 1 (27 de enero al 02 de febrero 2025)/taller1-cine",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2331ffc6-2bbc-491a-94a7-c9d4086df728" name="Changes" comment="" />
+      <created>1738772732624</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738772732624</updated>
+      <workItem from="1738772733662" duration="703000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cine" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cine" />
+  </component>
+</project>
