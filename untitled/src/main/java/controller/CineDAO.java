@@ -73,57 +73,10 @@ public class CineDAO implements IGenericDAO<Cine> {
         return false;
     }
 
-    @Override
-    public boolean agregar(Object entidad) {
-        return false;
-    }
 
-    @Override
-    public boolean modificar(Object entidad) {
-        return false;
-    }
 
-    @Override
-    public boolean eliminar(int id) {
-        return false;
-    }
 
-    public static void main(String[] args) {
-        CineDAO dao = new CineDAO();
-        System.out.println("*** Listar cines ***");
-        List<Cine> cines = dao.listarTodos();
-        cines.forEach(System.out::println);
-    }
 
-    @Override
-    public boolean buscarPorId(Cine cine) {
-        PreparedStatement ps;
-        ResultSet rs;
-        Connection con = getConexion();
-        // ? parametros posicionales
-        String sql = "SELECT * FROM cine WHERE idcliente = ?";
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, cine.getIdCine());
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                cine.setNombre(rs.getString("nombre"));
-                cine.setDireccion(rs.getString("direccion"));
-                cine.setResennas(rs.getString("resennas"));
-                cine.setTelefono(rs.getString("telefono"));
-                return true;
-            }
-        } catch (Exception e) {
-            System.out.println("Error al recuperar cine por id: " + e.getMessage());
-        } finally {
-            try {
-                con.close();
-            } catch (Exception e) {
-                System.out.println("Error al cerrar conexion: " + e.getMessage());
-            }
-        }
-        return false;
-    }
 
     @Override
     public boolean agregar(Cine cine) {
@@ -153,8 +106,10 @@ public class CineDAO implements IGenericDAO<Cine> {
         return false;
     }
 
+
+
     @Override
-    public boolean modificarCine(Cine cine) {
+    public boolean modificar(Cine cine) {
         PreparedStatement ps;
         Connection con = getConexion();
         // ? parametros posicionales
@@ -184,7 +139,7 @@ public class CineDAO implements IGenericDAO<Cine> {
     }
 
     @Override
-    public boolean eliminarCine(Cine cine) {
+    public boolean eliminar(Cine cine) {
         PreparedStatement ps;
         Connection con = getConexion();
         String sqlDelete = " DELETE FROM cine WHERE idCine = ?";
@@ -205,4 +160,77 @@ public class CineDAO implements IGenericDAO<Cine> {
         return false;
 
     }
+
+
+
+    public static void main(String[] args) {
+
+
+        CineDAO dao = new CineDAO();
+        System.out.println("*** Listar cines ***");
+        List<Cine> cines = dao.listarTodos();
+        cines.forEach(System.out::println);
+
+/*
+        //Listar clientes
+        System.out.println("*** Listar Clientes ***");
+        var clientes = clienteDao.listarClientes();
+        clientes.forEach(System.out::println);
+*/
+        /*
+        // Buscar por id
+        Cliente cliente1 = new Cliente(2);
+        System.out.println("Cliente antes de la busqueda: " + cliente1);
+        boolean encontrado = clienteDao.buscarClientePorId(cliente1);
+        if (encontrado)
+            System.out.println("Cliente encontrado: " + cliente1);
+        else
+            System.out.println("No se encontro cliente: " + cliente1.getId());
+*/
+        //Agregar cliente - Crear- INSERT TO
+      /*  Cliente nuevoCliente = new Cliente("Danna", "Vega", 60023);
+        boolean agregado = clienteDao.agregarCliente(nuevoCliente);
+        if (agregado)
+            System.out.println("Cliente agregado: " + nuevoCliente);
+        else
+            System.out.println("No se agregi cliente: " + nuevoCliente);
+
+        //Listar clientes
+        System.out.println("*** Listar Clientes ***");
+        var clientes = clienteDao.listarClientes();
+        clientes.forEach(System.out::println);
+
+        */
+        /*Modificar cliente
+         UPDATE
+         * */
+
+        Cliente modificarCliente = new Cliente(1, "Carlos Daniel", "Ortiz", 355);
+        var modificado = clienteDao.modificarCliente(modificarCliente);
+        if (modificado)
+            System.out.println("Cliente modificado" + modificarCliente);
+        else
+            System.out.println("No se modifico el cliente" + modificarCliente);
+
+
+        /*Eliminar Cliente
+        DELETE
+         */
+        Cliente clienteEliminado = new Cliente(7);
+        boolean eliminado = clienteDao.eliminarCliente(clienteEliminado);
+        if (eliminado)
+            System.out.println("Cliente eliminado" + clienteEliminado);
+        else
+            System.out.println("No se elimino el cliente" + clienteEliminado);
+
+
+        //Listar clientes
+        System.out.println("*** Listar Clientes ***");
+        var clientes = clienteDao.listarClientes();
+        clientes.forEach(System.out::println);
+
+
+    }
+
+
 }
