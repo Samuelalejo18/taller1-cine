@@ -72,12 +72,6 @@ public class CineDAO implements IGenericDAO<Cine> {
         }
         return false;
     }
-
-
-
-
-
-
     @Override
     public boolean agregar(Cine cine) {
         PreparedStatement ps;
@@ -204,7 +198,7 @@ public class CineDAO implements IGenericDAO<Cine> {
         /*Modificar cliente
          UPDATE
          * */
-
+/*
         Cliente modificarCliente = new Cliente(1, "Carlos Daniel", "Ortiz", 355);
         var modificado = clienteDao.modificarCliente(modificarCliente);
         if (modificado)
@@ -216,6 +210,8 @@ public class CineDAO implements IGenericDAO<Cine> {
         /*Eliminar Cliente
         DELETE
          */
+
+        /*
         Cliente clienteEliminado = new Cliente(7);
         boolean eliminado = clienteDao.eliminarCliente(clienteEliminado);
         if (eliminado)
@@ -228,7 +224,7 @@ public class CineDAO implements IGenericDAO<Cine> {
         System.out.println("*** Listar Clientes ***");
         var clientes = clienteDao.listarClientes();
         clientes.forEach(System.out::println);
-
+*/
 
     }
 
