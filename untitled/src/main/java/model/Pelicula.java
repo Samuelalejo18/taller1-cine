@@ -6,45 +6,169 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 @Entity
 @Table(name = "pelicula")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@ToString
+
 @EqualsAndHashCode
 public class Pelicula {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idPelicula;
-    private double duracion;
-    private String paisOrigen;
-    private int anno;
-    private String titulo;
-    private String idioma;
-    private String sinopsis;
-    private String tipo;
-    private String genero;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idPelicula;
+	private double duracion;
+	private String paisOrigen;
+	private int anno;
+	private String titulo;
+	private String idioma;
+	private String sinopsis;
+	private String tipo;
+	private String genero;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name="pelicula_director",
-            joinColumns=@JoinColumn(name="pelicula_id"),
-            inverseJoinColumns = @JoinColumn(name="director_id")
-    )
-    private List<Director> directores;
+	public Pelicula() {
+	}
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name="pelicula_actor",
-            joinColumns=@JoinColumn(name="pelicula_id"),
-            inverseJoinColumns = @JoinColumn(name="actor_id")
-    )
-    private List<Actor> actores= new ArrayList<>();
-    @OneToMany(mappedBy = "funcion", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Funcion> funciones=  new ArrayList<>();
+	public Pelicula(int idPelicula) {
+		this.idPelicula = idPelicula;
+	}
 
+	public Pelicula(int idPelicula, double duracion, String paisOrigen, int anno, String titulo, String idioma,
+			String sinopsis, String tipo, String genero) {
+		this.idPelicula = idPelicula;
+		this.duracion = duracion;
+		this.paisOrigen = paisOrigen;
+		this.anno = anno;
+		this.titulo = titulo;
+		this.idioma = idioma;
+		this.sinopsis = sinopsis;
+		this.tipo = tipo;
+		this.genero = genero;
+	}
 
+	public Pelicula(double duracion, String paisOrigen, int anno, String titulo, String idioma, String sinopsis,
+			String tipo, String genero) {
+		this.duracion = duracion;
+		this.paisOrigen = paisOrigen;
+		this.anno = anno;
+		this.titulo = titulo;
+		this.idioma = idioma;
+		this.sinopsis = sinopsis;
+		this.tipo = tipo;
+		this.genero = genero;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "pelicula_director", joinColumns = @JoinColumn(name = "pelicula_id"), inverseJoinColumns = @JoinColumn(name = "director_id"))
+	private List<Director> directores = new ArrayList<>();;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "pelicula_actor", joinColumns = @JoinColumn(name = "pelicula_id"), inverseJoinColumns = @JoinColumn(name = "actor_id"))
+	private List<Actor> actores = new ArrayList<>();
+
+	@OneToMany(mappedBy = "funcion", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Funcion> funciones = new ArrayList<>();
+
+	public int getIdPelicula() {
+		return idPelicula;
+	}
+
+	public void setIdPelicula(int idPelicula) {
+		this.idPelicula = idPelicula;
+	}
+
+	public double getDuracion() {
+		return duracion;
+	}
+
+	public void setDuracion(double duracion) {
+		this.duracion = duracion;
+	}
+
+	public String getPaisOrigen() {
+		return paisOrigen;
+	}
+
+	public void setPaisOrigen(String paisOrigen) {
+		this.paisOrigen = paisOrigen;
+	}
+
+	public int getAnno() {
+		return anno;
+	}
+
+	public void setAnno(int anno) {
+		this.anno = anno;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
+
+	public String getSinopsis() {
+		return sinopsis;
+	}
+
+	public void setSinopsis(String sinopsis) {
+		this.sinopsis = sinopsis;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public List<Director> getDirectores() {
+		return directores;
+	}
+
+	public void setDirectores(List<Director> directores) {
+		this.directores = directores;
+	}
+
+	public List<Actor> getActores() {
+		return actores;
+	}
+
+	public void setActores(List<Actor> actores) {
+		this.actores = actores;
+	}
+
+	public List<Funcion> getFunciones() {
+		return funciones;
+	}
+
+	public void setFunciones(List<Funcion> funciones) {
+		this.funciones = funciones;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

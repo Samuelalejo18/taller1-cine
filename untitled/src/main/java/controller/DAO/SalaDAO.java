@@ -1,4 +1,4 @@
-package controller;
+package controller.DAO;
 
 import model.Cine;
 import model.Sala;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import static utils.Conexion.getConexion;
 
-public class SalaDAO implements  IGenericDAO<Sala>{
+public class SalaDAO implements IGenericDAO<Sala> {
 
     @Override
     public List<Sala> listarTodos() {
@@ -21,21 +21,24 @@ public class SalaDAO implements  IGenericDAO<Sala>{
         CineDAO cineDAO = null;
         ResultSet rs;
         Connection con = getConexion();
-        String sqlSelect = "SELECT * FROM sala ORDER BY idSala";
+        String sqlSelect = "SELECT * FROM sala s inner join cine c on c.idCine= s.idCine ORDER BY idSala";
         try {
             ps = con.prepareStatement(sqlSelect);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Sala sala = new Sala();
                 sala.setIdSala(rs.getInt("idSala"));
-                sala.setNumero(rs.getInt("numero"));
-                sala.setNombre(rs.getString("nombre"));
-                sala.setCantidadSilla(rs.getInt("cantidadSilla"));
+                sala.setNumero(rs.getInt("numeroSala"));
+                sala.setNombre(rs.getString("nombreSala"));
+                sala.setCantidadSilla(rs.getInt("cantidad_sillas"));
                 sala.setFilas(rs.getInt("filas"));
                 sala.setColumnas(rs.getInt("columnas"));
-
-                // Si quieres establecer el cine de la sala, puedes obtenerlo y asignarlo aquí
-                // Por ejemplo, si tienes un objeto CineDAO, puedes hacer:
+                int idCine = rs.getInt("idCine");
+                String nombre = rs.getString("nombre");
+                String direccion = rs.getString("direccion");
+                String resennas = rs.getString("resennas");
+                String telefono = rs.getString("telefono");
+                sala.setCine(new Cine(idCine, nombre, direccion, resennas, telefono));
 
                 salas.add(sala);
             }
@@ -56,17 +59,25 @@ public class SalaDAO implements  IGenericDAO<Sala>{
         PreparedStatement ps;
         ResultSet rs;
         Connection con = getConexion();
-        String sql = "SELECT * FROM sala WHERE idSala = ?";
+        String sql = "SELECT * FROM sala s inner join cine c on c.idCine= s.idCine WHERE idSala = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, sala.getIdSala());
             rs = ps.executeQuery();
             if (rs.next()) {
-                sala.setNumero(rs.getInt("numero"));
-                sala.setNombre(rs.getString("nombre"));
-                sala.setCantidadSilla(rs.getInt("cantidadSilla"));
+
+                sala.setNumero(rs.getInt("numeroSala"));
+                sala.setNombre(rs.getString("nombreSala"));
+                sala.setCantidadSilla(rs.getInt("cantidad_sillas"));
                 sala.setFilas(rs.getInt("filas"));
                 sala.setColumnas(rs.getInt("columnas"));
+                int idCine = rs.getInt("idCine");
+                String nombre = rs.getString("nombre");
+                String direccion = rs.getString("direccion");
+                String resennas = rs.getString("resennas");
+                String telefono = rs.getString("telefono");
+                sala.setCine(new Cine(idCine, nombre, direccion, resennas, telefono));
+
                 return true;
             }
         } catch (SQLException e) {
@@ -85,7 +96,7 @@ public class SalaDAO implements  IGenericDAO<Sala>{
     public boolean agregar(Sala sala) {
         PreparedStatement ps;
         Connection con = getConexion();
-        String sqlCreate = "INSERT INTO sala (numero, nombre, cantidadSilla, filas, columnas, idCine) VALUES (?, ?, ?, ?, ?, ?)";
+        String sqlCreate = "INSERT INTO sala (numeroSala, nombreSala, cantidad_sillas, filas, columnas, idCine) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(sqlCreate);
             ps.setInt(1, sala.getNumero());
@@ -113,7 +124,7 @@ public class SalaDAO implements  IGenericDAO<Sala>{
     public boolean modificar(Sala sala) {
         PreparedStatement ps;
         Connection con = getConexion();
-        String sqlUpdate = "UPDATE sala SET numero = ?, nombre = ?, cantidadSilla = ?, filas = ?, columnas = ?, idCine = ? WHERE idSala = ?";
+        String sqlUpdate = "UPDATE sala SET numeroSala = ?, nombreSala = ?,cantidad_sillas = ?, filas = ?, columnas = ?, idCine = ? WHERE idSala = ?";
         try {
             ps = con.prepareStatement(sqlUpdate);
             ps.setInt(1, sala.getNumero());
@@ -159,5 +170,76 @@ public class SalaDAO implements  IGenericDAO<Sala>{
         }
         return false;
     }
+/*
+    public static void main(String[] args) {
+        SalaDAO salaDAO = new SalaDAO();
+/*
+        // Listar todas las salas
+        System.out.println("*** Listar salas ***");
+        List<Sala> salas = salaDAO.listarTodos();
+        salas.forEach(System.out::println);
+*/
+/*
+        // Buscar sala por ID
+        Sala sala = new Sala(19);
+
+
+        System.out.println("Sala antes de la búsqueda: " + sala);
+        boolean encontrada = salaDAO.buscarPorId(sala);
+        if (encontrada)
+            System.out.println("Sala encontrada: " + sala);
+        else
+            System.out.println("No se encontró la sala: " + sala);
+*/
+/*
+        // Agregar una nueva sala
+        Sala nuevaSala = new Sala();
+        nuevaSala.setNumero(4);
+        nuevaSala.setNombre("Sala VIP");
+        nuevaSala.setCantidadSilla(100);
+        nuevaSala.setFilas(10);
+        nuevaSala.setColumnas(10);
+        nuevaSala.setCine(new Cine(1));
+
+        boolean agregada = salaDAO.agregar(nuevaSala);
+        if (agregada)
+            System.out.println("Sala agregada: " + nuevaSala);
+        else
+            System.out.println("No se agregó la sala");
+
+
+ */
+        /*
+        // Modificar una sala existente
+        Sala salaModificar = new Sala();
+        salaModificar.setIdSala(2); // ID de la sala a modificar
+        salaModificar.setNumero(8);
+        salaModificar.setNombre("Sala 3D");
+        salaModificar.setCantidadSilla(150);
+        salaModificar.setFilas(15);
+        salaModificar.setColumnas(10);
+        salaModificar.setCine(new Cine(1, "Cinepolis", "Calle 123", "Buena atención", "123456789"));
+
+        boolean modificada = salaDAO.modificar(salaModificar);
+        if (modificada)
+            System.out.println("Sala modificada: " + salaModificar);
+        else
+            System.out.println("No se modificó la sala");
+*/
+  /*
+        // Eliminar una sala
+        Sala salaEliminar = new Sala();
+        salaEliminar.setIdSala(37); // ID de la sala a eliminar
+
+        boolean eliminada = salaDAO.eliminar(salaEliminar);
+        if (eliminada)
+            System.out.println("Sala eliminada: " + salaEliminar);
+        else
+            System.out.println("No se eliminó la sala");
+
+
+    }
+*/
+
 }
 

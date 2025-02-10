@@ -1,6 +1,5 @@
-package controller;
+package controller.DAO;
 
-import model.Cine;
 import model.Director;
 
 import java.sql.Connection;
@@ -31,7 +30,7 @@ public class DirectorDAO implements IGenericDAO<Director> {
                 director.setIdDirector(rs.getInt("idDirector"));
                 director.setNombre(rs.getString("nombre"));
                 director.setNacionalidad(rs.getString("nacionalidad"));
-                director.setCantidadPeliculasRealizadas(rs.getInt("cantidadPeliculasRealizadas"));
+                director.setCantidadPeliculasRealizadas(rs.getInt("cantidadDePeliculasRealizadas"));
                 directores.add(director);
             }
         } catch (SQLException e) {
@@ -59,7 +58,7 @@ public class DirectorDAO implements IGenericDAO<Director> {
             if (rs.next()) {
                 director.setNombre(rs.getString("nombre"));
                 director.setNacionalidad(rs.getString("nacionalidad"));
-                director.setCantidadPeliculasRealizadas(rs.getInt("cantidadPeliculasRealizadas"));
+                director.setCantidadPeliculasRealizadas(rs.getInt("cantidadDePeliculasRealizadas"));
                 return true;
             }
         } catch (SQLException e) {
@@ -78,7 +77,7 @@ public class DirectorDAO implements IGenericDAO<Director> {
     public boolean agregar(Director director) {
         PreparedStatement ps;
         Connection con = getConexion();
-        String sqlCreate = "INSERT INTO director(nombre, nacionalidad, cantidadPeliculasRealizadas) VALUES(?, ?, ?)";
+        String sqlCreate = "INSERT INTO director(nombre, nacionalidad, cantidadDePeliculasRealizadas) VALUES(?, ?, ?)";
         try {
             ps = con.prepareStatement(sqlCreate);
             ps.setString(1, director.getNombre());
@@ -103,7 +102,7 @@ public class DirectorDAO implements IGenericDAO<Director> {
     public boolean modificar(Director director) {
         PreparedStatement ps;
         Connection con = getConexion();
-        String sqlUpdate = "UPDATE director SET nombre = ?, nacionalidad = ?, cantidadPeliculasRealizadas = ? WHERE idDirector = ?";
+        String sqlUpdate = "UPDATE director SET nombre = ?, nacionalidad = ?, cantidadDePeliculasRealizadas = ? WHERE idDirector = ?";
         try {
             ps = con.prepareStatement(sqlUpdate);
             ps.setString(1, director.getNombre());
@@ -146,5 +145,63 @@ public class DirectorDAO implements IGenericDAO<Director> {
         }
         return false;
     }
+
+/*
+    public static void main(String[] args) {
+
+
+        DirectorDAO dao = new DirectorDAO();
+/*
+        System.out.println("*** Listar cines ***");
+        List<Director> directores = dao.listarTodos();
+        directores.forEach(System.out::println);
+*/
+/*
+
+    // Buscar actor por ID
+    Director director = new Director(11);
+    System.out.println("Actor antes de la búsqueda: " +  director);
+    boolean encontrado = dao.buscarPorId( director);
+    if (encontrado)
+        System.out.println("Director encontrado: " + director);
+    else
+        System.out.println("No se encontró el actor: " +  director);
+
+
+
+    // Agregar un actor - INSERT
+        Director nuevoDirector = new Director("Francis Ford Coppola", "Estadounidense", 14);
+
+        boolean agregado = dao.agregar( nuevoDirector);
+    if (agregado)
+        System.out.println("Director agregado: " +  nuevoDirector);
+    else
+        System.out.println("No se agregó el director");
+
+*/
+/*
+    // Modificar un actor - UPDATE
+        Director nuevoDirector1 = new Director("Francis Ford Coppola", "Estadounidense", 15,11);
+
+    boolean modificado = dao.modificar(nuevoDirector1 );
+    if (modificado)
+        System.out.println("Director modificado: " + nuevoDirector1 );
+    else
+        System.out.println("No se modificó el actor");
+*/
+
+/*
+        // Eliminar un actor - DELETE
+        Director directorEliminado = new Director(11);
+
+        boolean eliminado = dao.eliminar(directorEliminado);
+        if (eliminado)
+            System.out.println("Actor eliminado: " + directorEliminado);
+        else
+            System.out.println("No se eliminó el actor");
+
+    }
+
+*/
 }
 

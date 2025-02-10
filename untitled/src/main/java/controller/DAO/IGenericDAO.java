@@ -1,6 +1,4 @@
-package controller;
-
-import model.Cine;
+package controller.DAO;
 
 import java.util.List;
 

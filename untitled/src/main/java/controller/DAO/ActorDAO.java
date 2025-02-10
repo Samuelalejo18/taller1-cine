@@ -1,4 +1,4 @@
-package controller;
+package controller.DAO;
 
 import model.Actor;
 
@@ -28,7 +28,7 @@ public class ActorDAO implements IGenericDAO<Actor> {
                 actor.setIdActor(rs.getInt("idActor"));
                 actor.setNombre(rs.getString("nombre"));
                 actor.setNacionalidad(rs.getString("nacionalidad"));
-                actor.setCantidadPeliculasRealizadas(rs.getInt("cantidadPeliculasRealizadas"));
+                actor.setCantidadPeliculasRealizadas(rs.getInt("cantidadDePeliculasRealizadas"));
                 actores.add(actor);
             }
         } catch (SQLException e) {
@@ -56,7 +56,7 @@ public class ActorDAO implements IGenericDAO<Actor> {
             if (rs.next()) {
                 actor.setNombre(rs.getString("nombre"));
                 actor.setNacionalidad(rs.getString("nacionalidad"));
-                actor.setCantidadPeliculasRealizadas(rs.getInt("cantidadPeliculasRealizadas"));
+                actor.setCantidadPeliculasRealizadas(rs.getInt("cantidadDePeliculasRealizadas"));
                 return true;
             }
         } catch (SQLException e) {
@@ -75,7 +75,7 @@ public class ActorDAO implements IGenericDAO<Actor> {
     public boolean agregar(Actor actor) {
         PreparedStatement ps;
         Connection con = getConexion();
-        String sqlCreate = "INSERT INTO actor(nombre, nacionalidad, cantidadPeliculasRealizadas) VALUES(?, ?, ?)";
+        String sqlCreate = "INSERT INTO actor(nombre, nacionalidad, cantidadDePeliculasRealizadas) VALUES(?, ?, ?)";
         try {
             ps = con.prepareStatement(sqlCreate);
             ps.setString(1, actor.getNombre());
@@ -100,7 +100,7 @@ public class ActorDAO implements IGenericDAO<Actor> {
     public boolean modificar(Actor actor) {
         PreparedStatement ps;
         Connection con = getConexion();
-        String sqlUpdate = "UPDATE actor SET nombre = ?, nacionalidad = ?, cantidadPeliculasRealizadas = ? WHERE idActor = ?";
+        String sqlUpdate = "UPDATE actor SET nombre = ?, nacionalidad = ?, cantidadDePeliculasRealizadas = ? WHERE idActor = ?";
         try {
             ps = con.prepareStatement(sqlUpdate);
             ps.setString(1, actor.getNombre());
@@ -143,4 +143,61 @@ public class ActorDAO implements IGenericDAO<Actor> {
         }
         return false;
     }
+/*
+    public static void main(String[] args) {
+
+
+        ActorDAO dao = new ActorDAO();
+
+        System.out.println("*** Listar cines ***");
+        List<Actor> actores = dao.listarTodos();
+        actores.forEach(System.out::println);
+*/
+/*
+
+    // Buscar actor por ID
+    Actor actor1 = new Actor();
+    actor1.setIdActor(1);
+    System.out.println("Actor antes de la búsqueda: " + actor1);
+    boolean encontrado = dao.buscarPorId(actor1);
+    if (encontrado)
+        System.out.println("Actor encontrado: " + actor1);
+    else
+        System.out.println("No se encontró el actor: " + actor1);
+*/
+
+/*
+    // Agregar un actor - INSERT
+    Actor actor2 = new Actor("Tom Hanks", "Estadounidense", 70);
+    boolean agregado = dao.agregar(actor2);
+    if (agregado)
+        System.out.println("Actor agregado: " + actor2);
+    else
+        System.out.println("No se agregó el actor");
+*/
+
+/*
+    // Modificar un actor - UPDATE
+    Actor modificarActor = new Actor("Tom Hanks", "Estadounidense", 75,12);
+    boolean modificado = dao.modificar(modificarActor);
+    if (modificado)
+        System.out.println("Actor modificado: " + modificarActor);
+    else
+        System.out.println("No se modificó el actor");
+*/
+
+/*
+    // Eliminar un actor - DELETE
+    Actor actorEliminar = new Actor(12);
+
+    boolean eliminado = dao.eliminar(actorEliminar);
+    if (eliminado)
+        System.out.println("Actor eliminado: " + actorEliminar);
+    else
+        System.out.println("No se eliminó el actor");
+
+    }
+*/
 }
+
+

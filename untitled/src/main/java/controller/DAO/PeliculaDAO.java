@@ -1,6 +1,5 @@
-package controller;
+package controller.DAO;
 
-import model.Pelicula;
 import model.Pelicula;
 
 import java.sql.Connection;
@@ -12,7 +11,7 @@ import java.util.List;
 
 import static utils.Conexion.getConexion;
 
-public class PeliculaDAO implements  IGenericDAO<Pelicula>{
+public class PeliculaDAO implements IGenericDAO<Pelicula> {
     @Override
     public List<Pelicula> listarTodos() {
         List<Pelicula> Peliculas = new ArrayList<>();
@@ -135,6 +134,7 @@ public class PeliculaDAO implements  IGenericDAO<Pelicula>{
             ps.setString(6, entidad.getSinopsis());
             ps.setString(7, entidad.getTipo());
             ps.setString(8, entidad.getGenero());
+            ps.setInt(9, entidad.getIdPelicula());
             ps.execute();
             return true;
         } catch (Exception e) {
@@ -171,4 +171,63 @@ public class PeliculaDAO implements  IGenericDAO<Pelicula>{
         }
         return false;
     }
+
+    /*
+    public static void main(String[] args) {
+        PeliculaDAO dao = new PeliculaDAO();
+
+        System.out.println("*** Listar Películas ***");
+        List<Pelicula> peliculas = dao.listarTodos();
+        peliculas.forEach(System.out::println);
+/*
+        // Buscar película por ID
+        Pelicula pelicula1 = new Pelicula();
+        pelicula1.setIdPelicula(1);
+        System.out.println("\nPelícula antes de la búsqueda: " + pelicula1);
+        boolean encontrada = dao.buscarPorId(pelicula1);
+        if (encontrada)
+            System.out.println("Película encontrada: " + pelicula1);
+        else
+            System.out.println("No se encontró la película con ID 1.");
+*/
+
+/*
+        // Agregar una película - INSERT
+        Pelicula pelicula2 =new Pelicula(120, "EE.UU.", 2024, "Dune: Parte Dos",
+                "Inglés", "El épico viaje de Paul Atreides continúa.",
+                "Ciencia Ficción", "Acción");
+
+        boolean agregada = dao.agregar(pelicula2);
+        if (agregada)
+            System.out.println("\nPelícula agregada: " + pelicula2);
+        else
+            System.out.println("\nNo se agregó la película.");
+*/
+
+/*
+        // Modificar una película - UPDATE
+        Pelicula modificarPelicula =new Pelicula(180, "estados unidos", 2024, "Dune: Parte tres",
+                "Inglés", "El épico viaje de Paul Atreides continúa.",
+                "Ciencia Ficción", "Acción");
+        modificarPelicula.setIdPelicula(10); // ID de la película a modificar
+        boolean modificada = dao.modificar(modificarPelicula);
+        if (modificada)
+            System.out.println("\nPelícula modificada: " + modificarPelicula);
+        else
+            System.out.println("\nNo se modificó la película.");
+
+        // Eliminar una película - DELETE
+        Pelicula peliculaEliminar = new Pelicula();
+        peliculaEliminar.setIdPelicula(10); // ID de la película a eliminar
+        boolean eliminada = dao.eliminar(peliculaEliminar);
+        if (eliminada)
+            System.out.println("\nPelícula eliminada con ID: " + peliculaEliminar.getIdPelicula());
+        else
+            System.out.println("\nNo se eliminó la película.");
+
+
+    }
+*/
+
+
 }
