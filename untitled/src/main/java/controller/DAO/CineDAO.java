@@ -1,6 +1,7 @@
 package controller.DAO;
 
 import model.Cine;
+import view.ViewAutenticacion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -155,10 +156,10 @@ public class CineDAO implements IGenericDAO<Cine> {
 
     }
 
-
+/*
 
     public static void main(String[] args) {
-
+ViewAutenticacion view= new ViewAutenticacion(); 
 
         CineDAO dao = new CineDAO();
 
@@ -218,8 +219,8 @@ public class CineDAO implements IGenericDAO<Cine> {
 
 
 */
-
+/*
     }
-
+*/
 
 }

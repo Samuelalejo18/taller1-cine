@@ -9,7 +9,7 @@ import static utils.Conexion.getConexion;
 public class EmpleadoDAO implements IGenericDAO<Empleado> {
 
     @Override
-    public List<Empleado> listarTodos() {
+    public List<Empleado> listarTodos() throws SQLException {
         List<Empleado> empleados = new ArrayList<>();
         String sql = "SELECT * FROM empleado ORDER BY idEmpleado";
         try (Connection con = getConexion();
@@ -20,8 +20,9 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
                 Empleado empleado = new Empleado();
                 empleado.setIdEmpleado(rs.getInt("idempleado"));
                 empleado.setUsername(rs.getString("username"));
-                empleado.setNombre(rs.getString("nombre"));
+                empleado.setNombre(rs.getString("nombreEmpleado"));
                 empleado.setEmail(rs.getString("email"));
+                empleado.setPassword(rs.getString("password"));
                 empleado.setNombre(rs.getString("nombreEmpleado"));
                 empleado.setTelefono(rs.getString("telefonoEmpleado"));
                 empleado.setDocumentoIdentidad(rs.getInt("documentoIdentidadEmpleado"));
@@ -30,13 +31,13 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
                 empleados.add(empleado);
             }
         } catch (SQLException e) {
-            System.out.println("Error al listar empleados: " + e.getMessage());
+            throw  new SQLException(e);
         }
         return empleados;
     }
 
     @Override
-    public boolean buscarPorId(Empleado empleado) {
+    public boolean buscarPorId(Empleado empleado)  throws SQLException  {
         String sql = "SELECT * FROM empleado WHERE idEmpleado = ?";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -54,13 +55,13 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al buscar empleado por ID: " + e.getMessage());
+            throw  new SQLException(e);
         }
         return false;
     }
 
     @Override
-    public boolean agregar(Empleado empleado) {
+    public boolean agregar(Empleado empleado)    throws SQLException {
         String sql = "INSERT INTO empleado(username, email, nombreEmpleado, telefonoEmpleado, documentoIdentidadEmpleado, password) VALUES(?, ?, ?, ?, ?, ?)";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -74,13 +75,25 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error al agregar empleado: " + e.getMessage());
+            if (e.getSQLState().equals("23000")) { // Código de error para violación de restricción UNIQUE
+                String errorMessage = e.getMessage();
+
+                if (errorMessage.contains("empleado.email_UNIQUE")) {
+                    throw new SQLException("El correo electrónico ya está registrado.");
+                } else if (errorMessage.contains("empleado.username_UNIQUE")) {
+                    throw new SQLException("El nombre de usuario ya está registrado.");
+                } else if (errorMessage.contains("empleado.telefonoEmpleado_UNIQUE")) {
+                    throw new SQLException("El número de teléfono ya está registrado.");
+                } else if (errorMessage.contains("empleado.documentoIdentidadEmpleado_UNIQUE")) {
+                    throw new SQLException("El documento de identidad ya está registrado.");
+                }
+            }
+            throw new SQLException("Error al registrar el empleado.");
         }
-        return false;
     }
 
     @Override
-    public boolean modificar(Empleado empleado) {
+    public boolean modificar(Empleado empleado) throws SQLException  {
         String sql = "UPDATE empleado SET username = ?, email = ?, nombreEmpleado = ?, telefonoEmpleado = ?, documentoIdentidadEmpleado = ?, password = ? WHERE idEmpleado = ?";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -95,13 +108,12 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error al modificar empleado: " + e.getMessage());
+            throw  new SQLException(e);
         }
-        return false;
     }
 
     @Override
-    public boolean eliminar(Empleado empleado) {
+    public boolean eliminar(Empleado empleado)  throws SQLException {
         String sql = "DELETE FROM empleado WHERE idEmpleado = ?";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -110,8 +122,16 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error al eliminar empleado: " + e.getMessage());
+            throw  new SQLException(e);
         }
-        return false;
     }
+/*
+    public static void main(String[] args) {
+        EmpleadoDAO empleadoDAO= new EmpleadoDAO();
+        System.out.println("*** Listar cines ***");
+        List<Empleado> cines = empleadoDAO.listarTodos();
+        cines.forEach(System.out::println);
+    }
+*/
 }
+

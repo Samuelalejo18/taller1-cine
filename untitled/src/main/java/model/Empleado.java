@@ -28,6 +28,12 @@ public class Empleado extends Persona {
 
     }
 
+    public Empleado(String username, String email, String nombre, String telefono, int documentoIdentidad, String password) {
+        super(username, email, nombre, telefono, documentoIdentidad);
+
+        this.password = password;
+    }
+
     public String getPassword() {
         return password;
     }

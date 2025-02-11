@@ -1,5 +1,6 @@
 package utils;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -13,9 +14,9 @@ public class Conexion {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conexion= DriverManager.getConnection(url, usuario, password);
-            System.out.printf("conexion exitosa");
+
         } catch (Exception e) {
-            System.out.println("ERROR DE CONEXION A LA BASE DE DATOS: " + e.getMessage());
+
         }
         return conexion;
     }

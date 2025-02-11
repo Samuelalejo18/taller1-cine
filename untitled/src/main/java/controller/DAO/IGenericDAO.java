@@ -1,15 +1,16 @@
 package controller.DAO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface IGenericDAO<T> {
 
-    List<T> listarTodos();
-   boolean buscarPorId(T entidad);
+    List<T> listarTodos() throws SQLException;
+   boolean buscarPorId(T entidad) throws SQLException;
 
-    boolean agregar(T entidad);
+    boolean agregar(T entidad) throws SQLException;
 
-    boolean modificar(T entidad);
+    boolean modificar(T entidad) throws SQLException;
 
-    boolean eliminar(T entidad);
+    boolean eliminar(T entidad) throws SQLException;
 }
