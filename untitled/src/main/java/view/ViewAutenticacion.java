@@ -115,7 +115,7 @@ public class ViewAutenticacion extends JFrame {
 
 		// Crear el JLabel
 		JLabel lblEye = new JLabel("");
-		lblEye.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\ojoOpen.png"));
+		lblEye.setIcon(new ImageIcon(ViewAutenticacion.class.getResource("/utils/img/ojoOpen.png")));
 		lblEye.setBounds(124, 289, 33, 23); // Establecer el tamaño y la posición del JLabel
 
 		jpnFormulario.add(lblEye);
