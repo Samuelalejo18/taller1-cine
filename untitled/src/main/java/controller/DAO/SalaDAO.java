@@ -20,7 +20,12 @@ public class SalaDAO implements IGenericDAO<Sala> {
         PreparedStatement ps;
         CineDAO cineDAO = null;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlSelect = "SELECT * FROM sala s inner join cine c on c.idCine= s.idCine ORDER BY idSala";
         try {
             ps = con.prepareStatement(sqlSelect);
@@ -58,7 +63,12 @@ public class SalaDAO implements IGenericDAO<Sala> {
     public boolean buscarPorId(Sala sala) {
         PreparedStatement ps;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sql = "SELECT * FROM sala s inner join cine c on c.idCine= s.idCine WHERE idSala = ?";
         try {
             ps = con.prepareStatement(sql);
@@ -95,7 +105,12 @@ public class SalaDAO implements IGenericDAO<Sala> {
     @Override
     public boolean agregar(Sala sala) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlCreate = "INSERT INTO sala (numeroSala, nombreSala, cantidad_sillas, filas, columnas, idCine) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(sqlCreate);
@@ -123,7 +138,12 @@ public class SalaDAO implements IGenericDAO<Sala> {
     @Override
     public boolean modificar(Sala sala) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlUpdate = "UPDATE sala SET numeroSala = ?, nombreSala = ?,cantidad_sillas = ?, filas = ?, columnas = ?, idCine = ? WHERE idSala = ?";
         try {
             ps = con.prepareStatement(sqlUpdate);
@@ -152,7 +172,12 @@ public class SalaDAO implements IGenericDAO<Sala> {
     @Override
     public boolean eliminar(Sala sala) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlDelete = "DELETE FROM sala WHERE idSala = ?";
         try {
             ps = con.prepareStatement(sqlDelete);

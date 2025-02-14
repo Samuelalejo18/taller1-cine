@@ -18,6 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import view.roundClasses.RoundButton;
+import view.roundClasses.RoundedPanel;
+
 public class ViewRegistro extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -417,30 +420,21 @@ public class ViewRegistro extends JFrame {
 		return id;
 
 	}
+	public String pedirTelefono() {
+		String telefono = txtTelefono.getText().trim(); // Eliminar espacios en blanco
+		String regex = "\\d+"; // Expresión regular para solo números
 
-	public String pedirNumeroTelefono() {
-		String txtNumeroTelefono = "";
-
-		String numeroTelefono = "";
-
-		boolean numeroTelefonoValido = false;
-
-		try {
-			txtNumeroTelefono = txtTelefono.getText();
-			if (txtNumeroTelefono.isEmpty()) {
-				numeroTelefono = null;
-				throw new NumberFormatException("El campo de telefono no puede estar vacío.");
-			} else {
-				numeroTelefono = txtNumeroTelefono;
-				numeroTelefonoValido = true;
-
-			}
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(this, "Ingrese un telefono valido, Solo numeros", "Error",
-					JOptionPane.ERROR_MESSAGE);
+		if (telefono.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "El campo de teléfono no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+			return null;
 		}
 
-		return numeroTelefono;
+		if (!telefono.matches(regex)) {
+			JOptionPane.showMessageDialog(this, "El teléfono solo debe contener números.", "Error", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+
+		return telefono;
 	}
 
 	public String pedirContrasena() {

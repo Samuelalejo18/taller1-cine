@@ -31,6 +31,8 @@ public class ClienteDAO implements IGenericDAO<Cliente> {
             }
         } catch (SQLException e) {
             System.out.println("Error al listar clientes: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return clientes;
     }
@@ -54,6 +56,8 @@ public class ClienteDAO implements IGenericDAO<Cliente> {
             }
         } catch (SQLException e) {
             System.out.println("Error al buscar cliente por ID: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return false;
     }
@@ -73,6 +77,8 @@ public class ClienteDAO implements IGenericDAO<Cliente> {
             return true;
         } catch (SQLException e) {
             System.out.println("Error al agregar cliente: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return false;
     }
@@ -93,6 +99,8 @@ public class ClienteDAO implements IGenericDAO<Cliente> {
             return true;
         } catch (SQLException e) {
             System.out.println("Error al modificar cliente: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return false;
     }
@@ -108,6 +116,8 @@ public class ClienteDAO implements IGenericDAO<Cliente> {
             return true;
         } catch (SQLException e) {
             System.out.println("Error al eliminar cliente: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return false;
     }

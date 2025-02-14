@@ -3,20 +3,14 @@ package controller;
 import controller.DAO.EmpleadoDAO;
 import model.Empleado;
 import model.exepciones.AuntenticacionFallidaException;
-import model.exepciones.RegistroFallidoException;
 import view.ViewAutenticacion;
 import view.ViewRegistro;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 
 public class ControllerAutenticacion implements ActionListener {
@@ -49,7 +43,6 @@ public class ControllerAutenticacion implements ActionListener {
         btnRegisterLogin.addActionListener(this);
 
 
-
     }
 
 
@@ -63,6 +56,7 @@ public class ControllerAutenticacion implements ActionListener {
         viewAutenticacion.setVisible(true);
         viewAutenticacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -98,10 +92,10 @@ public class ControllerAutenticacion implements ActionListener {
 
         if (e.getSource() == btnRegisterRegistro) {
 
-                Empleado Empleado = new Empleado(viewRegistro.pedirUserName(),viewRegistro.pedirEmail(),
-                        viewRegistro.pedirNombre(),viewRegistro.pedirNumeroTelefono(),viewRegistro.pedirId(),viewRegistro.pedirContrasena());
+            Empleado Empleado = new Empleado(viewRegistro.pedirUserName(), viewRegistro.pedirEmail(),
+                    viewRegistro.pedirNombre(), viewRegistro.pedirTelefono(), viewRegistro.pedirId(), viewRegistro.pedirContrasena());
 
-                    registrar(Empleado);
+            registrar(Empleado);
 
         }
 
@@ -120,10 +114,16 @@ public class ControllerAutenticacion implements ActionListener {
         boolean existeUsuario = false;
         try {
             boolean agregado = empleadoDAO.agregar(empleado);
-            existeUsuario = true;
-            JOptionPane.showMessageDialog(viewRegistro, "Registro exitoso para el usuario " + empleado.getNombre(),
-                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            empleados.add(empleado);
+            if(agregado){
+                existeUsuario = true;
+                JOptionPane.showMessageDialog(viewRegistro, "Registro exitoso para el usuario " + empleado.getNombre(),
+                        "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                empleados.add(empleado);
+            }else {
+                return false;
+            }
+
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(viewRegistro, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
@@ -132,15 +132,12 @@ public class ControllerAutenticacion implements ActionListener {
     }
 
 
-
-
-
     public Empleado autenticarse(String usuarioEmail, String contrasena) throws AuntenticacionFallidaException {
         Empleado usuarioEncontrado = null;
         try {
             empleados = empleadoDAO.listarTodos();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(viewAutenticacion,e.getMessage(), "Error",
+            JOptionPane.showMessageDialog(viewAutenticacion, e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
         for (Empleado empleado : empleados) {

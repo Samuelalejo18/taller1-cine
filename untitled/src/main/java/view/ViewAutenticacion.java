@@ -1,33 +1,26 @@
 package view;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import view.roundClasses.RoundButton;
+import view.roundClasses.RoundedPanel;
+
 import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.RenderingHints;
-import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 
@@ -115,7 +108,7 @@ public class ViewAutenticacion extends JFrame {
 
 		// Crear el JLabel
 		JLabel lblEye = new JLabel("");
-		lblEye.setIcon(new ImageIcon(ViewAutenticacion.class.getResource("/utils/img/ojoOpen.png")));
+		lblEye.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\ojoOpen.png"));
 		lblEye.setBounds(124, 289, 33, 23); // Establecer el tamaño y la posición del JLabel
 
 		jpnFormulario.add(lblEye);

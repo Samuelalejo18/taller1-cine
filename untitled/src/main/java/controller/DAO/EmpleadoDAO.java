@@ -31,8 +31,13 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
                 empleados.add(empleado);
             }
         } catch (SQLException e) {
-            throw  new SQLException(e);
+            throw  new SQLException("Error a listar la los empleados");
+        } catch (Exception e) {
+            throw new RuntimeException("Error");
+        }finally {
+
         }
+
         return empleados;
     }
 
@@ -54,8 +59,10 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
                     return true;
                 }
             }
-        } catch (SQLException e) {
-            throw  new SQLException(e);
+        }  catch (SQLException e) {
+            throw  new SQLException("Error ak buscar el empleado por id");
+        } catch (Exception e) {
+            throw new RuntimeException("Error");
         }
         return false;
     }
@@ -89,11 +96,13 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
                 }
             }
             throw new SQLException("Error al registrar el empleado.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public boolean modificar(Empleado empleado) throws SQLException  {
+    public boolean modificar(Empleado empleado) throws Exception {
         String sql = "UPDATE empleado SET username = ?, email = ?, nombreEmpleado = ?, telefonoEmpleado = ?, documentoIdentidadEmpleado = ?, password = ? WHERE idEmpleado = ?";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -108,7 +117,22 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            throw  new SQLException(e);
+            if (e.getSQLState().equals("23000")) { // Código de error para violación de restricción UNIQUE
+                String errorMessage = e.getMessage();
+
+                if (errorMessage.contains("empleado.email_UNIQUE")) {
+                    throw new SQLException("El correo electrónico ya está registrado.");
+                } else if (errorMessage.contains("empleado.username_UNIQUE")) {
+                    throw new SQLException("El nombre de usuario ya está registrado.");
+                } else if (errorMessage.contains("empleado.telefonoEmpleado_UNIQUE")) {
+                    throw new SQLException("El número de teléfono ya está registrado.");
+                } else if (errorMessage.contains("empleado.documentoIdentidadEmpleado_UNIQUE")) {
+                    throw new SQLException("El documento de identidad ya está registrado.");
+                }
+            }
+            throw new SQLException("Error al registrar el empleado.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -122,7 +146,9 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            throw  new SQLException(e);
+            throw  new SQLException("El id no existe");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 /*

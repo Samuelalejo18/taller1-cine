@@ -20,7 +20,12 @@ public class DirectorDAO implements IGenericDAO<Director> {
         List<Director> directores = new ArrayList<>();
         PreparedStatement ps;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlSelect = "SELECT * FROM director ORDER BY idDirector";
         try {
             ps = con.prepareStatement(sqlSelect);
@@ -49,7 +54,12 @@ public class DirectorDAO implements IGenericDAO<Director> {
     public boolean buscarPorId(Director director) {
         PreparedStatement ps;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sql = "SELECT * FROM director WHERE idDirector = ?";
         try {
             ps = con.prepareStatement(sql);
@@ -76,7 +86,12 @@ public class DirectorDAO implements IGenericDAO<Director> {
     @Override
     public boolean agregar(Director director) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlCreate = "INSERT INTO director(nombre, nacionalidad, cantidadDePeliculasRealizadas) VALUES(?, ?, ?)";
         try {
             ps = con.prepareStatement(sqlCreate);
@@ -101,7 +116,12 @@ public class DirectorDAO implements IGenericDAO<Director> {
     @Override
     public boolean modificar(Director director) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlUpdate = "UPDATE director SET nombre = ?, nacionalidad = ?, cantidadDePeliculasRealizadas = ? WHERE idDirector = ?";
         try {
             ps = con.prepareStatement(sqlUpdate);
@@ -127,7 +147,12 @@ public class DirectorDAO implements IGenericDAO<Director> {
     @Override
     public boolean eliminar(Director director) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlDelete = "DELETE FROM director WHERE idDirector = ?";
         try {
             ps = con.prepareStatement(sqlDelete);

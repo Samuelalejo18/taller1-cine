@@ -1,6 +1,5 @@
-package view;
+package view.roundClasses;
 
-import javax.swing.border.AbstractBorder;
 import java.awt.*;
 
 public class RoundedBorder extends javax.swing.border.AbstractBorder {

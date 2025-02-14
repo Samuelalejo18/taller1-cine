@@ -210,7 +210,7 @@ public class ViewPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnPeliculas.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\palomitas-de-maiz.png"));
+		btnPeliculas.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\maiz.png"));
 		btnPeliculas.setFont(new Font("Raleway ExtraBold", Font.PLAIN, 16));
 		btnPeliculas.setBounds(0, 376, 300, 48);
 		btnPeliculas.setOpaque(true);

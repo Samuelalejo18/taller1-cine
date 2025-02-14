@@ -1,26 +1,27 @@
 package controller.DAO;
 
 import model.Cine;
-import view.ViewAutenticacion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.ResultSet;
 
 import static utils.Conexion.getConexion;
 
 public class CineDAO implements IGenericDAO<Cine> {
     @Override
-    public List<Cine> listarTodos() {
+    public List<Cine> listarTodos() throws SQLException {
         List<Cine> cines = new ArrayList<>();
         PreparedStatement ps;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+
         String sqlSelect = "SELECT * FROM neocine.cine ORDER BY idCine";
         try {
+            con = getConexion();
             ps = con.prepareStatement(sqlSelect);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -33,25 +34,27 @@ public class CineDAO implements IGenericDAO<Cine> {
                 cines.add(cine);
             }
         } catch (Exception e) {
-            System.out.println("Error al listar cines: " + e.getMessage());
+            throw new SQLException(e);
         } finally {
             try {
                 con.close();
             } catch (Exception e) {
-                System.out.println("Error al cerrar conexion: " + e.getMessage());
+                throw new SQLException(e);
             }
         }
         return cines;
     }
 
     @Override
-    public boolean buscarPorId(Cine cine) {
+    public boolean buscarPorId(Cine cine) throws SQLException {
         PreparedStatement ps;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+
         // ? parametros posicionales
         String sql = "SELECT * FROM cine WHERE idCine= ?";
         try {
+            con = getConexion();
             ps = con.prepareStatement(sql);
             ps.setInt(1, cine.getIdCine());
             rs = ps.executeQuery();
@@ -63,80 +66,102 @@ public class CineDAO implements IGenericDAO<Cine> {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println("Error al recuperar cine por id: " + e.getMessage());
+            throw new SQLException("Error al buscar el empleado por id");
         } finally {
             try {
                 con.close();
             } catch (Exception e) {
-                System.out.println("Error al cerrar conexion: " + e.getMessage());
+                throw new SQLException("Error al cerrar la conexion");
             }
         }
         return false;
     }
+
     @Override
-    public boolean agregar(Cine cine) {
-        PreparedStatement ps;
-        Connection con = getConexion();
-        // ? parametros posicionales
-        String sqlCreate = "INSERT INTO Cine(nombre, direccion, resennas, telefono) " + " VALUES(?, ?, ?,?)";
-        try {
-            ps = con.prepareStatement(sqlCreate);
+    public boolean agregar(Cine cine) throws SQLException {
+        String sql = "INSERT INTO Cine(nombre, direccion, resennas, telefono) VALUES(?, ?, ?, ?)";
+
+        try (Connection con = getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setString(1, cine.getNombre());
             ps.setString(2, cine.getDireccion());
             ps.setString(3, cine.getResennas());
             ps.setString(4, cine.getTelefono());
-
             ps.execute();
             return true;
-        } catch (Exception e) {
-            System.out.println("Error al agregar el cliente" + e.getMessage());
-        } finally {
 
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrrar la conexion" + e.getMessage());
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("23000")) { // Código de error para violación de restricción UNIQUE
+                String errorMessage = e.getMessage();
+
+                if (errorMessage.contains("cine.nombre_UNIQUE")) {
+
+                    throw new SQLException("El nombre del cine ya está registrado.");
+                } else if (errorMessage.contains("cine.telefono_UNIQUE")) {
+                    throw new SQLException("El número de teléfono ya está registrado.");
+                }
+                return false;
             }
+            throw new SQLException("Error al registrar el cine.");
+        } catch (Exception e) {
+
+            throw new RuntimeException("Error inesperado al registrar el cine.", e);
         }
-        return false;
     }
 
 
-
     @Override
-    public boolean modificar(Cine cine) {
+    public boolean modificar(Cine cine) throws SQLException {
         PreparedStatement ps;
-        Connection con = getConexion();
-        // ? parametros posicionales
-        String sqlUpdate = "UPDATE  cine SET nombre = ?, direccion = ?, resennas =?, telefono = ?" + " WHERE idCine = ?";
-        ;
-        try {
+        Connection con = null;
 
+        String sqlUpdate = "UPDATE cine SET nombre = ?, direccion = ?, resennas = ?, telefono = ? WHERE idCine = ?";
+
+        try {
+            con = getConexion();
             ps = con.prepareStatement(sqlUpdate);
             ps.setString(1, cine.getNombre());
             ps.setString(2, cine.getDireccion());
             ps.setString(3, cine.getResennas());
             ps.setString(4, cine.getTelefono());
             ps.setInt(5, cine.getIdCine());
-            ps.execute();
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error al modificar el cliente" + e.getMessage());
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar conexion" + e.getMessage());
+
+            int filasAfectadas = ps.executeUpdate(); // Retorna el número de filas modificadas
+
+            if (filasAfectadas == 0) {
+                throw new SQLException("No se encontró un cine con el ID especificado.");
             }
 
-        }
-        return false;
-    }
+            return true;
+        } catch (SQLException e) {
+            String sqlState = e.getSQLState();
 
-    @Override
-    public boolean eliminar(Cine cine) {
+            if (sqlState != null && sqlState.equals("23000")) { // Verifica que sqlState no sea null
+                String errorMessage = e.getMessage();
+                if (errorMessage.contains("cine.nombre_UNIQUE")) {
+                    throw new SQLException("El nombre del cine ya está registrado.");
+                } else if (errorMessage.contains("cine.telefono_UNIQUE")) {
+                    throw new SQLException("El número de teléfono ya está registrado.");
+                }
+            } else if (sqlState == null) {
+                throw new SQLException("Error desconocido en la base de datos: " + e.getMessage());
+            }
+
+            throw new SQLException("Error al registrar el cine.");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+        @Override
+    public boolean eliminar(Cine cine) throws SQLException {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlDelete = " DELETE FROM cine WHERE idCine = ?";
         try {
             ps = con.prepareStatement(sqlDelete);
@@ -144,15 +169,14 @@ public class CineDAO implements IGenericDAO<Cine> {
             ps.execute();
             return true;
         } catch (Exception e) {
-            System.out.println("Error al eliminar el cliente" + e.getMessage());
+            throw new SQLException("Error al eliminar el cine.");
         } finally {
             try {
                 con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrar conexion" + e.getMessage());
+                throw new SQLException("Error al cerrar la conexion");
             }
         }
-        return false;
 
     }
 

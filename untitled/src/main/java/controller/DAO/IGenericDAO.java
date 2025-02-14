@@ -10,7 +10,7 @@ public interface IGenericDAO<T> {
 
     boolean agregar(T entidad) throws SQLException;
 
-    boolean modificar(T entidad) throws SQLException;
+    boolean modificar(T entidad) throws Exception;
 
     boolean eliminar(T entidad) throws SQLException;
 }

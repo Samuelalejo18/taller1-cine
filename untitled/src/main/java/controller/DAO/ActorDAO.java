@@ -18,7 +18,12 @@ public class ActorDAO implements IGenericDAO<Actor> {
         List<Actor> actores = new ArrayList<>();
         PreparedStatement ps;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlSelect = "SELECT * FROM actor ORDER BY idActor";
         try {
             ps = con.prepareStatement(sqlSelect);
@@ -47,7 +52,12 @@ public class ActorDAO implements IGenericDAO<Actor> {
     public boolean buscarPorId(Actor actor) {
         PreparedStatement ps;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sql = "SELECT * FROM actor WHERE idActor = ?";
         try {
             ps = con.prepareStatement(sql);
@@ -74,7 +84,12 @@ public class ActorDAO implements IGenericDAO<Actor> {
     @Override
     public boolean agregar(Actor actor) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlCreate = "INSERT INTO actor(nombre, nacionalidad, cantidadDePeliculasRealizadas) VALUES(?, ?, ?)";
         try {
             ps = con.prepareStatement(sqlCreate);
@@ -99,7 +114,12 @@ public class ActorDAO implements IGenericDAO<Actor> {
     @Override
     public boolean modificar(Actor actor) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlUpdate = "UPDATE actor SET nombre = ?, nacionalidad = ?, cantidadDePeliculasRealizadas = ? WHERE idActor = ?";
         try {
             ps = con.prepareStatement(sqlUpdate);
@@ -125,7 +145,12 @@ public class ActorDAO implements IGenericDAO<Actor> {
     @Override
     public boolean eliminar(Actor actor) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlDelete = "DELETE FROM actor WHERE idActor = ?";
         try {
             ps = con.prepareStatement(sqlDelete);

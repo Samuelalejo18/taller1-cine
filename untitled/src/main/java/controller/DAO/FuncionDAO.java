@@ -19,7 +19,12 @@ public class FuncionDAO implements IGenericDAO<Funcion> {
         List<Funcion> funciones = new ArrayList<>();
         PreparedStatement ps;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlSelect = "SELECT * FROM funcion f inner join pelicula p on p.idPelicula= f.idPelicula inner join sala s on s.idSala= f.idSala";
         try {
             ps = con.prepareStatement(sqlSelect);
@@ -69,7 +74,12 @@ public class FuncionDAO implements IGenericDAO<Funcion> {
     public boolean buscarPorId(Funcion funcion) {
         PreparedStatement ps;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         // ? parametros posicionales
         String sql = "SELECT * FROM funcion f inner join pelicula p on p.idPelicula= f.idPelicula inner join sala s on s.idSala= f.idSala WHERE idFuncion= ?";
         try {
@@ -119,7 +129,12 @@ public class FuncionDAO implements IGenericDAO<Funcion> {
     @Override
     public boolean agregar(Funcion funcion) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         // ? parametros posicionales
         String sqlCreateFuncion = "INSERT INTO funcion  (dia,hora, idSala,idPelicula) "
                 + "VALUES (?, ?,?,?)";
@@ -152,7 +167,12 @@ public class FuncionDAO implements IGenericDAO<Funcion> {
     @Override
     public boolean modificar(Funcion funcion) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         // ? parametros posicionales
         String sqlUpdate = "UPDATE  funcion SET dia= ?, hora =? ,idSala=?, idPelicula=? " + " WHERE idFuncion = ?";
         try {
@@ -184,7 +204,12 @@ public class FuncionDAO implements IGenericDAO<Funcion> {
     @Override
     public boolean eliminar(Funcion funcion) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlDelete = " DELETE FROM funcion WHERE idFuncion = ?";
         try {
             ps = con.prepareStatement(sqlDelete);

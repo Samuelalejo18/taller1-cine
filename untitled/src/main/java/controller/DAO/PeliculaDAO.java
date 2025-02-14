@@ -17,7 +17,12 @@ public class PeliculaDAO implements IGenericDAO<Pelicula> {
         List<Pelicula> Peliculas = new ArrayList<>();
         PreparedStatement ps;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlSelect = "SELECT * FROM neocine.Pelicula ORDER BY idPelicula";
         try {
             ps = con.prepareStatement(sqlSelect);
@@ -52,7 +57,12 @@ public class PeliculaDAO implements IGenericDAO<Pelicula> {
     public boolean buscarPorId(Pelicula pelicula) {
         PreparedStatement ps;
         ResultSet rs;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         // ? parametros posicionales
         String sql = "SELECT * FROM pelicula WHERE idPelicula = ?";
         try {
@@ -85,7 +95,12 @@ public class PeliculaDAO implements IGenericDAO<Pelicula> {
     @Override
     public boolean agregar(Pelicula entidad) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         // ? parametros posicionales
         String sqlCreateMovie = "INSERT INTO pelicula  (titulo, duracion, paisOrigen, anno, idioma, sinopsis, tipo, genero) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -118,7 +133,12 @@ public class PeliculaDAO implements IGenericDAO<Pelicula> {
     @Override
     public boolean modificar(Pelicula entidad) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         // ? parametros posicionales
         String sqlUpdateMovie = "UPDATE pelicula "
                 + "SET titulo = ?, duracion = ?, paisOrigen = ?, anno = ?, idioma = ?, sinopsis = ?, tipo = ?, genero = ? "
@@ -153,7 +173,12 @@ public class PeliculaDAO implements IGenericDAO<Pelicula> {
     @Override
     public boolean eliminar(Pelicula pelicula) {
         PreparedStatement ps;
-        Connection con = getConexion();
+        Connection con = null;
+        try {
+            con = getConexion();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String sqlDelete = " DELETE FROM pelicula WHERE idPelicula = ?";
         try {
             ps = con.prepareStatement(sqlDelete);
