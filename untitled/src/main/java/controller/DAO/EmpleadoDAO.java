@@ -35,7 +35,11 @@ public class EmpleadoDAO implements IGenericDAO<Empleado> {
         } catch (Exception e) {
             throw new RuntimeException("Error");
         }finally {
-
+            try {
+                getConexion().close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
         return empleados;

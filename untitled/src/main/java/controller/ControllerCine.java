@@ -12,6 +12,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class ControllerCine implements ActionListener {
     private JButton btnModificarCine;
     private RoundedTextField txtIdCine;
     private JButton btnEliminarCine;
-
+    private JButton btnTodos;
     private JTable tableCine;
 
     private Cine cineSeleccionado;
@@ -41,7 +43,7 @@ public class ControllerCine implements ActionListener {
     private RoundButton btnVolverModificar;
 
 
-    ///buscar por id
+    /// buscar por id
     private JButton btnIdCine;
 
     public ControllerCine() {
@@ -56,7 +58,8 @@ public class ControllerCine implements ActionListener {
         btnEliminarCine.addActionListener(this);
         btnIdCine.addActionListener(this);
         tableCine = panelCine.getTableCine();
-
+        btnTodos = panelCine.getBtnTodos();
+        btnTodos.addActionListener(this);
 
         viewNuevoCine = new ViewNuevoCine();
         btnVolverNuevoCine = viewNuevoCine.getBtnVolver();
@@ -70,6 +73,14 @@ public class ControllerCine implements ActionListener {
         btnVolverModificar = viewActualizarCine.getBtnVolverModificar();
         btnVolverModificar.addActionListener(this);
         btnUpdateCine.addActionListener(this);
+
+        viewActualizarCine.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                viewActualizarCine.limpiarCampos(); // Borra la información
+                cineSeleccionado = null; // Resetea la selección
+            }
+        });
 
         actualizarTablaCine();
     }
@@ -105,16 +116,6 @@ public class ControllerCine implements ActionListener {
                 viewActualizarCine.setVisible(true);
                 viewActualizarCine.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
-
-
-        }
-
-        if (e.getSource() == btnVolverModificar) {
-            viewActualizarCine.setVisible(false);
-            viewActualizarCine.dispose();
-            viewActualizarCine.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            panelCine.getTableCine().removeAll();
-            actualizarTablaCine();
         }
 
         if (e.getSource() == btnUpdateCine) {
@@ -128,18 +129,21 @@ public class ControllerCine implements ActionListener {
             if (id == 0 || nombre == null || direccion == null || resennas == null || telefono == null) {
                 JOptionPane.showMessageDialog(null, "Todos los campos deben estar llenos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
-            } else {
-
-                Cine cine = new Cine(id, nombre, direccion, resennas, telefono);
-                modificarCine(cine);
-                viewActualizarCine.limpiarCampos();
-
             }
+
+            Cine cine = new Cine(id, nombre, direccion, resennas, telefono);
+            modificarCine(cine);
+            cineSeleccionado = null; // Resetea la selección para evitar que se conserve al cerrar y abrir
             viewActualizarCine.limpiarCampos();
-
-
         }
 
+        if (e.getSource() == btnVolverModificar) {
+            viewActualizarCine.setVisible(false);
+            viewActualizarCine.dispose();
+            viewActualizarCine.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            panelCine.getTableCine().removeAll();
+            actualizarTablaCine();
+        }
         if (e.getSource() == btnEliminarCine) {
             if (cineSeleccionado != null) {
                 int confirmacion = JOptionPane.showConfirmDialog(
@@ -149,7 +153,6 @@ public class ControllerCine implements ActionListener {
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.WARNING_MESSAGE
                 );
-
                 if (confirmacion == JOptionPane.YES_OPTION) {
                     eliminarCine(cineSeleccionado);
                 }
@@ -157,18 +160,27 @@ public class ControllerCine implements ActionListener {
                 JOptionPane.showMessageDialog(panelCine, "Seleccione un cine para eliminar.", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
         }
+        if (e.getSource() == btnIdCine) {
+            int idCine = panelCine.pedirId();
+            Cine cine = new Cine(idCine);
+            buscarPorId(cine);
+            if (idCine == 0 || cine == null) {
 
-        if(e.getSource()== btnIdCine){
-            int idCine= panelCine.pedirId();
-            Cine cine= new Cine(idCine);
-            if(idCine!=0 || cine!=null){
-             //   buscarPorId(cine);
-
+                panelCine.getTableCine().removeAll();
+                actualizarTablaCine();
             }
 
         }
 
+        if(e.getSource()== btnTodos){
+            panelCine.getTableCine().removeAll();
+            actualizarTablaCine();
+        }
+
     }
+
+
+
     public Cine seleccionarCineTable() {
 
         tableCine.getSelectionModel().addListSelectionListener(event -> {
@@ -245,7 +257,7 @@ public class ControllerCine implements ActionListener {
                 viewActualizarCine.dispose();
                 viewActualizarCine.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 viewActualizarCine.limpiarCampos();
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(panelCine, "No se realizaron cambios en el cine.", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
 
@@ -254,7 +266,7 @@ public class ControllerCine implements ActionListener {
             ex.printStackTrace();
         } finally {
             panelCine.getTableCine().removeAll();
-            viewActualizarCine.limpiarCampos();
+
             actualizarTablaCine();
         }
 
@@ -266,7 +278,7 @@ public class ControllerCine implements ActionListener {
             eliminado = cineDAO.eliminar(cine);
             if (eliminado) {
                 JOptionPane.showMessageDialog(panelCine, "Cine  eliminado exitosamente");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(panelCine, "No se  elimino  el cine.", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
 
@@ -280,26 +292,24 @@ public class ControllerCine implements ActionListener {
 
     }
 
-/*
     public void buscarPorId(Cine cine) {
-        boolean buscado= false;
+        boolean buscado = false;
         try {
-             buscado = cineDAO.buscarPorId(cine);
-            if(buscado) {
-                JOptionPane.showMessageDialog(panelCine, "Cine encontrado");
-            }else{
-                JOptionPane.showMessageDialog(panelCine, "No se  encontro el cine .", "Aviso", JOptionPane.WARNING_MESSAGE);
-            }
+            buscado = cineDAO.buscarPorId(cine);
+            DefaultTableModel modelo = (DefaultTableModel) panelCine.getTableCine().getModel();
+            modelo.setRowCount(0); // Borra todas las filas de la tabla
 
+            if (buscado) {
+                JOptionPane.showMessageDialog(panelCine, "Cine encontrado");
+                modelo.addRow(new Object[]{cine.getIdCine(), cine.getNombre(), cine.getDireccion(), cine.getResennas(), cine.getTelefono()});
+            } else {
+                JOptionPane.showMessageDialog(panelCine, "No se encontró el cine.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(viewNuevoCine, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
-        } finally {
-            panelCine.getTableCine().removeAll();
-            actualizarTablaCine();
         }
-
     }
-*/
+
 
 }

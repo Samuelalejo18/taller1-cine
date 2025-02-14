@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 
 import view.roundClasses.*;
 
@@ -26,6 +27,8 @@ public class JPanelCine extends JPanel {
     private JLabel lblEliminar;
     private JLabel lblBuscarCinePor;
     private JButton btnIdCine;
+    private JButton btnTodos;
+    private JLabel lblListarTodosLos;
 
     public JPanelCine() {
 
@@ -46,6 +49,12 @@ public class JPanelCine extends JPanel {
         tableCine.setFont(new Font("Arial", Font.PLAIN, 14)); // Fuente general de la tabla
         tableCine.setRowHeight(25); // Altura de cada fila
         tableCine.setGridColor(Color.LIGHT_GRAY); // Color de las líneas de la tabla
+
+        TableColumnModel columnModel =  tableCine.getColumnModel();
+
+// Ajustar el ancho de columnas específicas
+        columnModel.getColumn(0).setPreferredWidth(30);
+        columnModel.getColumn(4).setPreferredWidth(40);
 
 // *** Estilizar encabezado ***
         JTableHeader header = tableCine.getTableHeader();
@@ -138,7 +147,9 @@ public class JPanelCine extends JPanel {
         panelBotones.add(lblEliminar);
 
         txtIdCine = new RoundedTextField(20, 20);
-        txtIdCine.setBounds(602, 47, 151, 30);
+        txtIdCine.setHorizontalAlignment(SwingConstants.CENTER);
+        txtIdCine.setFont(new Font("Roboto Slab ExtraBold", Font.PLAIN, 14));
+        txtIdCine.setBounds(602, 39, 151, 38);
         panelBotones.add(txtIdCine);
 
         lblBuscarCinePor = new JLabel("Buscar cine por ID");
@@ -160,6 +171,21 @@ public class JPanelCine extends JPanel {
         lblRealiceBusquedaY.setFont(new Font("Raleway Light", Font.BOLD, 14));
         lblRealiceBusquedaY.setBounds(20, 51, 497, 30);
         add(lblRealiceBusquedaY);
+        
+        btnTodos = new JButton("");
+        btnTodos.setOpaque(false);
+        btnTodos.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\todos.png"));
+        btnTodos.setFocusPainted(false);
+        btnTodos.setContentAreaFilled(false);
+        btnTodos.setBorderPainted(false);
+        btnTodos.setBounds(646, 13, 84, 64);
+        add(btnTodos);
+        
+        lblListarTodosLos = new JLabel("Listar todos los cines");
+        lblListarTodosLos.setHorizontalAlignment(SwingConstants.CENTER);
+        lblListarTodosLos.setFont(new Font("Raleway Light", Font.BOLD, 12));
+        lblListarTodosLos.setBounds(732, 32, 169, 30);
+        add(lblListarTodosLos);
     }
 
     public JButton getBtnEliminarCine() {
@@ -213,42 +239,34 @@ public class JPanelCine extends JPanel {
         this.txtIdCine = txtIdCine;
     }
 
-    public int pedirId() {
-        String idTxt = "";
+    
+    
+    public JButton getBtnTodos() {
+		return btnTodos;
+	}
+
+	public int pedirId() {
+        String idTxt = txtIdCine.getText().trim(); // Elimina espacios en blanco
         int id = 0;
-        boolean idValido = false;
 
-
-
-        String regex = "\\d+"; // Expresión regular para solo números
-
+        // Expresión regular para validar solo números
+        String regex = "\\d+";
 
         try {
-
-            idTxt = txtIdCine.getText();
             if (idTxt.isEmpty()) {
-                idValido = false;
-                id = 0;
                 throw new NumberFormatException("El campo de id no puede estar vacío.");
-            }  else if(idTxt.matches(regex)) {
-                JOptionPane.showMessageDialog(this, "El id solo debe contener números.", "Error", JOptionPane.ERROR_MESSAGE);
-                id= 0;
-            }else
-
-            {
-                id = Integer.parseInt(idTxt);
-                idValido = true;
-
             }
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un id valido, Solo numeros", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            if (!idTxt.matches(regex)) {
+                throw new NumberFormatException("El id solo debe contener números.");
+            }
 
+            id = Integer.parseInt(idTxt);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         return id;
-
     }
 
 

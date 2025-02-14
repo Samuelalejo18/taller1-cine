@@ -29,6 +29,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JTable;
 import javax.swing.JList;
+import javax.swing.BoxLayout;
 
 
 public class ViewPrincipal extends JFrame {
@@ -192,7 +193,7 @@ public class ViewPrincipal extends JFrame {
 		jpnSlideBar.add(btnCine);
 
 		 btnFuncion = new JButton("    Funciones");
-		btnFuncion.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\claqueta.png"));
+		btnFuncion.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\maiz.png"));
 		btnFuncion.setHorizontalAlignment(SwingConstants.LEADING);
 		btnFuncion.setFont(new Font("Raleway ExtraBold", Font.PLAIN, 16));
 		btnFuncion.setBounds(0, 290, 300, 47);
@@ -210,7 +211,7 @@ public class ViewPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnPeliculas.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\maiz.png"));
+		btnPeliculas.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\claqueta.png"));
 		btnPeliculas.setFont(new Font("Raleway ExtraBold", Font.PLAIN, 16));
 		btnPeliculas.setBounds(0, 376, 300, 48);
 		btnPeliculas.setOpaque(true);
@@ -238,10 +239,6 @@ public class ViewPrincipal extends JFrame {
 		btnReserva.setBackground(new Color(51, 51, 51));
 		jpnSlideBar.add(btnReserva);
 
-		Component verticalStrut_11 = Box.createVerticalStrut(20);
-		verticalStrut_11.setBounds(7, 511, 12, 20);
-		jpnSlideBar.add(verticalStrut_11);
-
 		Component verticalStrut_5 = Box.createVerticalStrut(20);
 		verticalStrut_5.setBounds(7, 538, 12, 20);
 		jpnSlideBar.add(verticalStrut_5);
@@ -259,6 +256,19 @@ public class ViewPrincipal extends JFrame {
 				lblNewLabel_3.setBounds(0, 7, 300, 108);
 				jpnSlideBar.add(lblNewLabel_3);
 				lblNewLabel_3.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\Neo_Cine_Logosmall.png"));
+				
+				JButton btnSala = new JButton("    Salas");
+				btnSala.setOpaque(true);
+				btnSala.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\pantalla-de-cine.png"));
+				btnSala.setHorizontalAlignment(SwingConstants.LEADING);
+				btnSala.setForeground(new Color(159, 159, 159));
+				btnSala.setFont(new Font("Raleway ExtraBold", Font.PLAIN, 16));
+				btnSala.setFocusPainted(false);
+				btnSala.setContentAreaFilled(false);
+				btnSala.setBorderPainted(false);
+				btnSala.setBackground(new Color(51, 51, 51));
+				btnSala.setBounds(0, 548, 300, 48);
+				jpnSlideBar.add(btnSala);
 
 		Component verticalGlue = Box.createVerticalGlue();
 		verticalGlue.setBounds(143, 669, 1, 1);
@@ -277,27 +287,39 @@ public class ViewPrincipal extends JFrame {
 
 
 
-        JPanel jpnCliente = new JPanel();
-        jpnCliente.setBackground(Color.BLUE);
+      //  JPanel jpnCliente = new JPanel();
+        //jpnCliente.setBackground(Color.BLUE);
         JPanel jpnFuncion = new JPanel();
         jpnFuncion.setBackground(Color.GREEN);
-        JPanel jpnPeliculas = new JPanel();
-        jpnPeliculas.setBackground(Color.YELLOW);
+       // JPanel jpnPeliculas = new JPanel();
+        //jpnPeliculas.setBackground(Color.YELLOW);
         JPanel jpnReserva = new JPanel();
         jpnReserva.setBackground(Color.CYAN);
         mainPanel.add(emptypanel);
+        emptypanel.setLayout(new BoxLayout(emptypanel, BoxLayout.X_AXIS));
+        
+        Component glue = Box.createGlue();
+        emptypanel.add(glue);
+        
+        JLabel lblNewLabel_3_1 = new JLabel("");
+        lblNewLabel_3_1.setIcon(new ImageIcon("D:\\Universidad\\5.Quinto semestre\\NUEVAS TECNOLOGÍAS DE DESARROLLO\\Semana 1 (27 de enero al 02 de febrero 2025)\\taller1-cine\\untitled\\src\\main\\java\\utils\\img\\Neo_Cine_Logo_Transparent__1_-removebg-preview.png"));
+        lblNewLabel_3_1.setHorizontalAlignment(SwingConstants.CENTER);
+        emptypanel.add(lblNewLabel_3_1);
+        
+        Component glue_1 = Box.createGlue();
+        emptypanel.add(glue_1);
         //mainPanel.add(jpnCine, "Cine");
         //jpnCine.setLayout(null);
-        mainPanel.add(jpnCliente, "Cliente");
+       // mainPanel.add(jpnCliente, "Cliente");
         mainPanel.add(jpnFuncion, "Funciones");
-        mainPanel.add(jpnPeliculas, "Peliculas");
+       // mainPanel.add(jpnPeliculas, "Peliculas");
         mainPanel.add(jpnReserva, "Reserva");
 
         // Asignar eventos a los botones
         btnCine.addActionListener(e -> cardLayout.show(mainPanel, "Cine"));
         btnCliente.addActionListener(e -> cardLayout.show(mainPanel, "Cliente"));
         btnFuncion.addActionListener(e -> cardLayout.show(mainPanel, "Funciones"));
-        btnPeliculas.addActionListener(e -> cardLayout.show(mainPanel, "Peliculas"));
+        btnPeliculas.addActionListener(e -> cardLayout.show(mainPanel, "Pelicula"));
         btnReserva.addActionListener(e -> cardLayout.show(mainPanel, "Reserva"));
 
 

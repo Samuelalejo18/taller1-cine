@@ -11,14 +11,21 @@ public class ControllerViewPrincipal implements ActionListener {
 
     private ViewPrincipal viewPrincipal;
     private ControllerCine controllerCine;
+    private ControllerPelicula controllerPelicula;
+    private ControllerCliente controllerCliente;
 
     public ControllerViewPrincipal() {
         viewPrincipal = new ViewPrincipal();
         controllerCine = new ControllerCine();
+        controllerPelicula = new ControllerPelicula();
         // Agregar el panel de cine a la vista principal
         viewPrincipal.getMainPanel().add(controllerCine.getPanelCine(), "Cine");
-
+        viewPrincipal.getMainPanel().add(controllerPelicula.getjPanelPelicula(), "Pelicula");
+        controllerCliente = new ControllerCliente();
+        viewPrincipal.getMainPanel().add(controllerCliente.getjPanelCliente(), "Cliente");
         mostrarViewPrincipal(true);
+
+
     }
 
     @Override

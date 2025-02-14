@@ -66,7 +66,7 @@ public class CineDAO implements IGenericDAO<Cine> {
                 return true;
             }
         } catch (Exception e) {
-            throw new SQLException("Error al buscar el empleado por id");
+            throw new SQLException("Error al buscar la pelicula por id");
         } finally {
             try {
                 con.close();

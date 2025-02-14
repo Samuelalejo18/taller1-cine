@@ -2,7 +2,10 @@ package controller.DAO;
 
 import model.Cliente;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +14,7 @@ import static utils.Conexion.getConexion;
 public class ClienteDAO implements IGenericDAO<Cliente> {
 
     @Override
-    public List<Cliente> listarTodos() {
+    public List<Cliente> listarTodos() throws SQLException {
         List<Cliente> clientes = new ArrayList<>();
         String sql = "SELECT * FROM cliente ORDER BY idCliente";
         try (Connection con = getConexion();
@@ -22,7 +25,7 @@ public class ClienteDAO implements IGenericDAO<Cliente> {
                 Cliente cliente = new Cliente();
                 cliente.setIdCliente(rs.getInt("idCliente"));
                 cliente.setUsername(rs.getString("username"));
-                cliente.setNombre(rs.getString("nombre"));
+                cliente.setNombre(rs.getString("nombreCliente"));
                 cliente.setEmail(rs.getString("email"));
                 cliente.setNombre(rs.getString("nombreCliente"));
                 cliente.setTelefono(rs.getString("telefonoCliente"));
@@ -30,15 +33,22 @@ public class ClienteDAO implements IGenericDAO<Cliente> {
                 clientes.add(cliente);
             }
         } catch (SQLException e) {
-            System.out.println("Error al listar clientes: " + e.getMessage());
+            throw new SQLException(e.getMessage());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error");
+        } finally {
+            try {
+                getConexion().close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
+
         return clientes;
     }
 
     @Override
-    public boolean buscarPorId(Cliente cliente) {
+    public boolean buscarPorId(Cliente cliente) throws SQLException {
         String sql = "SELECT * FROM cliente WHERE idCliente = ?";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -55,15 +65,15 @@ public class ClienteDAO implements IGenericDAO<Cliente> {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al buscar cliente por ID: " + e.getMessage());
+            throw new SQLException("Error ak buscar el empleado por id");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error");
         }
         return false;
     }
 
     @Override
-    public boolean agregar(Cliente cliente) {
+    public boolean agregar(Cliente cliente) throws SQLException {
         String sql = "INSERT INTO cliente(username, email, nombreCliente, telefonoCliente, documentoIdentidadCliente) VALUES(?, ?, ?, ?, ?)";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -76,15 +86,27 @@ public class ClienteDAO implements IGenericDAO<Cliente> {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error al agregar cliente: " + e.getMessage());
+            if (e.getSQLState().equals("23000")) { // Código de error para violación de restricción UNIQUE
+                String errorMessage = e.getMessage();
+
+                if (errorMessage.contains("cliente.email_UNIQUE")) {
+                    throw new SQLException("El correo electrónico ya está registrado.");
+                } else if (errorMessage.contains("cliente.username_UNIQUE")) {
+                    throw new SQLException("El nombre de usuario ya está registrado.");
+                } else if (errorMessage.contains("cliente.telefonoCliente_UNIQUE")) {
+                    throw new SQLException("El número de teléfono ya está registrado.");
+                } else if (errorMessage.contains("cliente.documentoIdentidadCliente_UNIQUE")) {
+                    throw new SQLException("El documento de identidad ya está registrado.");
+                }
+            }
+            throw new SQLException("Error al registrar el cliente.");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return false;
     }
 
     @Override
-    public boolean modificar(Cliente cliente) {
+    public boolean modificar(Cliente cliente) throws SQLException {
         String sql = "UPDATE cliente SET username = ?, email = ?, nombreCliente = ?, telefonoCliente = ?, documentoIdentidadCliente = ? WHERE idCliente = ?";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -98,15 +120,27 @@ public class ClienteDAO implements IGenericDAO<Cliente> {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error al modificar cliente: " + e.getMessage());
+            if (e.getSQLState().equals("23000")) { // Código de error para violación de restricción UNIQUE
+                String errorMessage = e.getMessage();
+
+                if (errorMessage.contains("cliente.email_UNIQUE")) {
+                    throw new SQLException("El correo electrónico ya está registrado.");
+                } else if (errorMessage.contains("cliente.username_UNIQUE")) {
+                    throw new SQLException("El nombre de usuario ya está registrado.");
+                } else if (errorMessage.contains("cliente.telefonoCliente_UNIQUE")) {
+                    throw new SQLException("El número de teléfono ya está registrado.");
+                } else if (errorMessage.contains("cliente.documentoIdentidadCliente_UNIQUE")) {
+                    throw new SQLException("El documento de identidad ya está registrado.");
+                }
+            }
+            throw new SQLException("Error al modificar el cliente.");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return false;
     }
 
     @Override
-    public boolean eliminar(Cliente cliente) {
+    public boolean eliminar(Cliente cliente) throws SQLException {
         String sql = "DELETE FROM cliente WHERE idCliente = ?";
         try (Connection con = getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -115,10 +149,9 @@ public class ClienteDAO implements IGenericDAO<Cliente> {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error al eliminar cliente: " + e.getMessage());
+            throw new SQLException("El id no existe");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return false;
     }
 }

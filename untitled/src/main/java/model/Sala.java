@@ -6,20 +6,16 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "sala")
 
 public class Sala {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private int idSala;
 	private int numero;
 	private String nombre;
 	private int cantidadSilla;
 	private int filas;
 	private int columnas;
-	@ManyToOne
-	@JoinColumn(name = "idCine") // Nombre de la columna en la tabla 'cine' que actúa como clave foránea
+
 	private Cine cine;
 
 	public Sala() {

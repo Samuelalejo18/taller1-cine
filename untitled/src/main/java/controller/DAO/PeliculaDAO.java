@@ -13,8 +13,8 @@ import static utils.Conexion.getConexion;
 
 public class PeliculaDAO implements IGenericDAO<Pelicula> {
     @Override
-    public List<Pelicula> listarTodos() {
-        List<Pelicula> Peliculas = new ArrayList<>();
+    public List<Pelicula> listarTodos() throws SQLException {
+        List<Pelicula> peliculas = new ArrayList<>();
         PreparedStatement ps;
         ResultSet rs;
         Connection con = null;
@@ -39,22 +39,22 @@ public class PeliculaDAO implements IGenericDAO<Pelicula> {
                 pelicula.setSinopsis(rs.getString("sinopsis"));
                 pelicula.setGenero(rs.getString("genero"));
                 pelicula.setTipo(rs.getString("tipo"));
-                Peliculas.add(pelicula);
+                peliculas.add(pelicula);
             }
         } catch (Exception e) {
-            System.out.println("Error al listar Peliculas: " + e.getMessage());
+            throw new SQLException(e);
         } finally {
             try {
                 con.close();
             } catch (Exception e) {
-                System.out.println("Error al cerrar conexion: " + e.getMessage());
+                throw new SQLException(e);
             }
         }
-        return Peliculas;
+        return peliculas;
     }
 
     @Override
-    public boolean buscarPorId(Pelicula pelicula) {
+    public boolean buscarPorId(Pelicula pelicula) throws SQLException {
         PreparedStatement ps;
         ResultSet rs;
         Connection con = null;
@@ -80,20 +80,20 @@ public class PeliculaDAO implements IGenericDAO<Pelicula> {
                 pelicula.setTipo(rs.getString("tipo"));
                 return true;
             }
-        } catch (Exception e) {
-            System.out.println("Error al recuperar cine por id: " + e.getMessage());
+        }catch (Exception e) {
+            throw new SQLException("Error al buscar la pelicula por id");
         } finally {
             try {
                 con.close();
             } catch (Exception e) {
-                System.out.println("Error al cerrar conexion: " + e.getMessage());
+                throw new SQLException("Error al cerrar la conexion");
             }
         }
         return false;
     }
 
     @Override
-    public boolean agregar(Pelicula entidad) {
+    public boolean agregar(Pelicula entidad) throws SQLException {
         PreparedStatement ps;
         Connection con = null;
         try {
@@ -118,20 +118,20 @@ public class PeliculaDAO implements IGenericDAO<Pelicula> {
             ps.execute();
             return true;
         } catch (Exception e) {
-            System.out.println("Error al agregar la pelicula" + e.getMessage());
+            throw new SQLException("Error al agregar la pelicula");
         } finally {
 
             try {
                 con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrrar la conexion" + e.getMessage());
+                throw new SQLException("Error al cerrar la conexion");
             }
         }
-        return false;
+
     }
 
     @Override
-    public boolean modificar(Pelicula entidad) {
+    public boolean modificar(Pelicula entidad) throws SQLException {
         PreparedStatement ps;
         Connection con = null;
         try {
@@ -156,22 +156,30 @@ public class PeliculaDAO implements IGenericDAO<Pelicula> {
             ps.setString(8, entidad.getGenero());
             ps.setInt(9, entidad.getIdPelicula());
             ps.execute();
+
+            int filasAfectadas = ps.executeUpdate(); // Retorna el número de filas modificadas
+
+            if (filasAfectadas == 0) {
+                throw new SQLException("No se encontró la pelicula con el ID especificado.");
+            }
+
+
             return true;
         } catch (Exception e) {
-            System.out.println("Error al modificar  la pelicula" + e.getMessage());
+
+            throw new SQLException("Error al modificar la pelicula");
         } finally {
             try {
                 con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrar conexion" + e.getMessage());
+                throw new SQLException("Error al cerrar la conexion");
             }
 
         }
-        return false;
     }
 
     @Override
-    public boolean eliminar(Pelicula pelicula) {
+    public boolean eliminar(Pelicula pelicula) throws SQLException {
         PreparedStatement ps;
         Connection con = null;
         try {
@@ -186,15 +194,14 @@ public class PeliculaDAO implements IGenericDAO<Pelicula> {
             ps.execute();
             return true;
         } catch (Exception e) {
-            System.out.println("Error al eliminar la pelicula" + e.getMessage());
+            throw new SQLException("Error al eliminar el cine.");
         } finally {
             try {
                 con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrar conexion" + e.getMessage());
+                throw new SQLException("Error al cerrar la conexion");
             }
         }
-        return false;
     }
 
     /*

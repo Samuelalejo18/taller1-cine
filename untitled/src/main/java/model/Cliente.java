@@ -3,11 +3,9 @@ package model;
 import com.mysql.cj.xdevapi.Client;
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "cliente")
+
 public class Cliente extends Persona {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int idCliente;
 
     public Cliente() {
@@ -17,9 +15,15 @@ public class Cliente extends Persona {
         this.idCliente = idCliente;
     }
 
+    public Cliente(String username, String email, String nombre, String telefono, int documentoIdentidad, int idCliente) {
+        super(username, email, nombre, telefono, documentoIdentidad);
+        this.idCliente = idCliente;
+    }
+
     public Cliente( String username, String email, String nombre, String telefono, int documentoIdentidad) {
         super( username, email, nombre, telefono, documentoIdentidad);
     }
+
 
     public int getIdCliente() {
         return idCliente;
