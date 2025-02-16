@@ -289,13 +289,13 @@ public class ViewPrincipal extends JFrame {
 
       //  JPanel jpnCliente = new JPanel();
         //jpnCliente.setBackground(Color.BLUE);
-        JPanel jpnFuncion = new JPanel();
-        jpnFuncion.setBackground(Color.GREEN);
+        //JPanel jpnFuncion = new JPanel();
+        //jpnFuncion.setBackground(Color.GREEN);
        // JPanel jpnPeliculas = new JPanel();
         //jpnPeliculas.setBackground(Color.YELLOW);
-        JPanel jpnReserva = new JPanel();
-        jpnReserva.setBackground(Color.CYAN);
-        mainPanel.add(emptypanel);
+       // JPanel jpnReserva = new JPanel();
+        //jpnReserva.setBackground(Color.CYAN);
+        //mainPanel.add(emptypanel);
         emptypanel.setLayout(new BoxLayout(emptypanel, BoxLayout.X_AXIS));
         
         Component glue = Box.createGlue();
@@ -311,9 +311,9 @@ public class ViewPrincipal extends JFrame {
         //mainPanel.add(jpnCine, "Cine");
         //jpnCine.setLayout(null);
        // mainPanel.add(jpnCliente, "Cliente");
-        mainPanel.add(jpnFuncion, "Funciones");
+        //mainPanel.add(jpnFuncion, "Funciones");
        // mainPanel.add(jpnPeliculas, "Peliculas");
-        mainPanel.add(jpnReserva, "Reserva");
+        //mainPanel.add(jpnReserva, "Reserva");
 
         // Asignar eventos a los botones
         btnCine.addActionListener(e -> cardLayout.show(mainPanel, "Cine"));
@@ -321,7 +321,7 @@ public class ViewPrincipal extends JFrame {
         btnFuncion.addActionListener(e -> cardLayout.show(mainPanel, "Funciones"));
         btnPeliculas.addActionListener(e -> cardLayout.show(mainPanel, "Pelicula"));
         btnReserva.addActionListener(e -> cardLayout.show(mainPanel, "Reserva"));
-
+		btnSala.addActionListener(e -> cardLayout.show(mainPanel, "Sala"));
 
 		btnMenu.addActionListener(new ActionListener() {
 		    private boolean isExpanded = true;

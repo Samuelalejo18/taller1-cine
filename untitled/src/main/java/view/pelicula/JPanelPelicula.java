@@ -3,6 +3,7 @@ package view.pelicula;
 import view.roundClasses.RoundedTextField;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -101,6 +102,35 @@ public class JPanelPelicula extends JPanel {
         scrollPanePelicula.setBounds(20, 89, 900, 400);
         add(scrollPanePelicula);
 
+        
+        scrollPanePelicula.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(200, 0, 0); // Color de la barra (Rojo oscuro)
+                this.trackColor = new Color(240, 240, 240); // Color del fondo de la barra
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return new JButton() {
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(0, 0); // Oculta los botones de desplazamiento
+                    }
+                };
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return new JButton() {
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(0, 0); // Oculta los botones de desplazamiento
+                    }
+                };
+            }
+        });
+        
         // *** Panel de botones ***
         JPanel panelBotones = new JPanel();
         panelBotones.setLayout(null);

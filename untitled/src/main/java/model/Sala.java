@@ -1,7 +1,7 @@
 package model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,117 +9,134 @@ import java.util.List;
 
 public class Sala {
 
-	private int idSala;
-	private int numero;
-	private String nombre;
-	private int cantidadSilla;
-	private int filas;
-	private int columnas;
+    private int idSala;
+    private int numero;
+    private String nombre;
+    private int cantidadSilla;
+    private int filas;
+    private int columnas;
 
-	private Cine cine;
+    private Cine cine;
 
-	public Sala() {
+    public Sala() {
 
-	}
+    }
 
-	public Sala(int numero, String nombre, int cantidadSilla, int filas, int columnas, Cine cine) {
-		this.numero = numero;
-		this.nombre = nombre;
-		this.cantidadSilla = cantidadSilla;
-		this.filas = filas;
-		this.columnas = columnas;
-		this.cine = cine;
-	}
+    public Sala(int numero, String nombre, int cantidadSilla, int filas, int columnas, Cine cine) {
+        this.numero = numero;
+        this.nombre = nombre;
+        this.cantidadSilla = cantidadSilla;
+        this.filas = filas;
+        this.columnas = columnas;
+        this.cine = cine;
+    }
 
-	public Sala(int idSala, int numero, String nombre, int cantidadSilla, int filas, int columnas) {
-		this.idSala = idSala;
-		this.numero = numero;
-		this.nombre = nombre;
-		this.cantidadSilla = cantidadSilla;
-		this.filas = filas;
-		this.columnas = columnas;
-	}
+    public Sala(int numero, String nombre, int cantidadSilla, int filas, int columnas) {
+        this.numero = numero;
+        this.nombre = nombre;
+        this.cantidadSilla = cantidadSilla;
+        this.filas = filas;
+        this.columnas = columnas;
 
-	public Sala(int idSala) {
-		this.idSala = idSala;
-	}
+    }
 
-	@OneToMany(mappedBy = "funcion", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Funcion> funciones = new ArrayList<>();
+    public Sala(int idSala, int numero, String nombre, int cantidadSilla, int filas, int columnas, Cine cine) {
+        this.idSala = idSala;
+        this.numero = numero;
+        this.nombre = nombre;
+        this.cantidadSilla = cantidadSilla;
+        this.filas = filas;
+        this.columnas = columnas;
+        this.cine = cine;
+    }
 
-	
-	
-	
-	public int getIdSala() {
-		return idSala;
-	}
+    public Sala(int idSala, int numero, String nombre, int cantidadSilla, int filas, int columnas) {
+        this.idSala = idSala;
+        this.numero = numero;
+        this.nombre = nombre;
+        this.cantidadSilla = cantidadSilla;
+        this.filas = filas;
+        this.columnas = columnas;
+    }
 
-	public void setIdSala(int idSala) {
-		this.idSala = idSala;
-	}
+    public Sala(int idSala) {
+        this.idSala = idSala;
+    }
 
-	public int getNumero() {
-		return numero;
-	}
+    @OneToMany(mappedBy = "funcion", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Funcion> funciones = new ArrayList<>();
 
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
 
-	public String getNombre() {
-		return nombre;
-	}
+    public int getIdSala() {
+        return idSala;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setIdSala(int idSala) {
+        this.idSala = idSala;
+    }
 
-	public int getCantidadSilla() {
-		return cantidadSilla;
-	}
+    public int getNumero() {
+        return numero;
+    }
 
-	public void setCantidadSilla(int cantidadSilla) {
-		this.cantidadSilla = cantidadSilla;
-	}
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
 
-	public int getFilas() {
-		return filas;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setFilas(int filas) {
-		this.filas = filas;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public int getColumnas() {
-		return columnas;
-	}
+    public int getCantidadSilla() {
+        return cantidadSilla;
+    }
 
-	public void setColumnas(int columnas) {
-		this.columnas = columnas;
-	}
+    public void setCantidadSilla(int cantidadSilla) {
+        this.cantidadSilla = cantidadSilla;
+    }
 
-	public Cine getCine() {
-		return cine;
-	}
+    public int getFilas() {
+        return filas;
+    }
 
-	public void setCine(Cine cine) {
-		this.cine = cine;
-	}
+    public void setFilas(int filas) {
+        this.filas = filas;
+    }
 
-	public List<Funcion> getFunciones() {
-		return funciones;
-	}
+    public int getColumnas() {
+        return columnas;
+    }
 
-	public void setFunciones(List<Funcion> funciones) {
-		this.funciones = funciones;
-	}
+    public void setColumnas(int columnas) {
+        this.columnas = columnas;
+    }
 
-	@Override
-	public String toString() {
-		return "Sala [idSala=" + idSala + ", numero=" + numero + ", nombre=" + nombre + ", cantidadSilla="
-				+ cantidadSilla + ", filas=" + filas + ", columnas=" + columnas + ", cine=" + cine + ", funciones="
-				+ funciones + "]";
-	}
+    public Cine getCine() {
+        return cine;
+    }
+
+    public void setCine(Cine cine) {
+        this.cine = cine;
+    }
+
+    public List<Funcion> getFunciones() {
+        return funciones;
+    }
+
+    public void setFunciones(List<Funcion> funciones) {
+        this.funciones = funciones;
+    }
+
+    @Override
+    public String toString() {
+        return "Sala [idSala=" + idSala + ", numero=" + numero + ", nombre=" + nombre + ", cantidadSilla="
+                + cantidadSilla + ", filas=" + filas + ", columnas=" + columnas + ", cine=" + cine + ", funciones="
+                + funciones + "]";
+    }
 
 
 }

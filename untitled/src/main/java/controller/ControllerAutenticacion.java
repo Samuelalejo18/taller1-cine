@@ -26,7 +26,7 @@ public class ControllerAutenticacion implements ActionListener {
     JButton btnRegisterRegistro;
     JButton btnRegisterLogin;
 
-
+    ControllerViewPrincipal principall;
     public ControllerAutenticacion() {
         viewAutenticacion = new ViewAutenticacion();
         viewRegistro = new ViewRegistro();
@@ -41,6 +41,14 @@ public class ControllerAutenticacion implements ActionListener {
         btnRegisterRegistro.addActionListener(this);
         btnRegisterLogin = viewRegistro.getBtnLogin();
         btnRegisterLogin.addActionListener(this);
+
+        if(usuarioAutenticado != null) {
+            principall= new ControllerViewPrincipal();
+            principall.mostrarViewPrincipal(true);
+            viewAutenticacion.dispose();
+            viewAutenticacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        }
+
 
 
     }
@@ -114,12 +122,12 @@ public class ControllerAutenticacion implements ActionListener {
         boolean existeUsuario = false;
         try {
             boolean agregado = empleadoDAO.agregar(empleado);
-            if(agregado){
+            if (agregado) {
                 existeUsuario = true;
                 JOptionPane.showMessageDialog(viewRegistro, "Registro exitoso para el usuario " + empleado.getNombre(),
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 empleados.add(empleado);
-            }else {
+            } else {
                 return false;
             }
 
@@ -150,6 +158,10 @@ public class ControllerAutenticacion implements ActionListener {
         if (usuarioEncontrado != null) {
             if (usuarioEncontrado.getPassword().equals(contrasena)) {
                 usuarioAutenticado = usuarioEncontrado;
+                ControllerViewPrincipal principal = new ControllerViewPrincipal();
+                principal.mostrarViewPrincipal(true);
+                viewAutenticacion.dispose();
+                viewAutenticacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 return usuarioAutenticado;
             } else {
                 throw new AuntenticacionFallidaException(" ViewAutenticacion fallida");

@@ -13,6 +13,7 @@ public class ControllerViewPrincipal implements ActionListener {
     private ControllerCine controllerCine;
     private ControllerPelicula controllerPelicula;
     private ControllerCliente controllerCliente;
+    private ControllerSala controllerSala;
 
     public ControllerViewPrincipal() {
         viewPrincipal = new ViewPrincipal();
@@ -23,6 +24,9 @@ public class ControllerViewPrincipal implements ActionListener {
         viewPrincipal.getMainPanel().add(controllerPelicula.getjPanelPelicula(), "Pelicula");
         controllerCliente = new ControllerCliente();
         viewPrincipal.getMainPanel().add(controllerCliente.getjPanelCliente(), "Cliente");
+
+        ControllerSala sala = new ControllerSala();
+        viewPrincipal.getMainPanel().add(sala.getjPanelSala(), "Sala");
         mostrarViewPrincipal(true);
 
 

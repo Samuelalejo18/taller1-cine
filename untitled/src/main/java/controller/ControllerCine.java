@@ -300,6 +300,7 @@ public class ControllerCine implements ActionListener {
             modelo.setRowCount(0); // Borra todas las filas de la tabla
 
             if (buscado) {
+
                 JOptionPane.showMessageDialog(panelCine, "Cine encontrado");
                 modelo.addRow(new Object[]{cine.getIdCine(), cine.getNombre(), cine.getDireccion(), cine.getResennas(), cine.getTelefono()});
             } else {

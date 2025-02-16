@@ -15,7 +15,7 @@ import static utils.Conexion.getConexion;
 public class SalaDAO implements IGenericDAO<Sala> {
 
     @Override
-    public List<Sala> listarTodos() {
+    public List<Sala> listarTodos() throws SQLException {
         List<Sala> salas = new ArrayList<>();
         PreparedStatement ps;
         CineDAO cineDAO = null;
@@ -47,20 +47,20 @@ public class SalaDAO implements IGenericDAO<Sala> {
 
                 salas.add(sala);
             }
-        } catch (SQLException e) {
-            System.out.println("Error al listar salas: " + e.getMessage());
+        } catch (Exception e) {
+            throw new SQLException(e);
         } finally {
             try {
                 con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar conexión: " + e.getMessage());
+            } catch (Exception e) {
+                throw new SQLException(e);
             }
         }
         return salas;
     }
 
     @Override
-    public boolean buscarPorId(Sala sala) {
+    public boolean buscarPorId(Sala sala) throws SQLException {
         PreparedStatement ps;
         ResultSet rs;
         Connection con = null;
@@ -90,20 +90,20 @@ public class SalaDAO implements IGenericDAO<Sala> {
 
                 return true;
             }
-        } catch (SQLException e) {
-            System.out.println("Error al recuperar sala por id: " + e.getMessage());
+        }catch (Exception e) {
+            throw new SQLException("Error al buscar la sala por id");
         } finally {
             try {
                 con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar conexión: " + e.getMessage());
+            } catch (Exception e) {
+                throw new SQLException("Error al cerrar la conexion");
             }
         }
         return false;
     }
 
     @Override
-    public boolean agregar(Sala sala) {
+    public boolean agregar(Sala sala) throws SQLException {
         PreparedStatement ps;
         Connection con = null;
         try {
@@ -123,20 +123,21 @@ public class SalaDAO implements IGenericDAO<Sala> {
 
             ps.execute();
             return true;
-        } catch (SQLException e) {
-            System.out.println("Error al agregar la sala: " + e.getMessage());
+        } catch (Exception e) {
+            throw new SQLException("Error al agregar la sala");
         } finally {
+
             try {
                 con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrar conexión: " + e.getMessage());
+                throw new SQLException("Error al cerrar la conexion");
             }
         }
-        return false;
+
     }
 
     @Override
-    public boolean modificar(Sala sala) {
+    public boolean modificar(Sala sala) throws SQLException {
         PreparedStatement ps;
         Connection con = null;
         try {
@@ -157,20 +158,20 @@ public class SalaDAO implements IGenericDAO<Sala> {
 
             ps.execute();
             return true;
-        } catch (SQLException e) {
-            System.out.println("Error al modificar la sala: " + e.getMessage());
+        } catch (Exception e) {
+
+            throw new SQLException("Error al modificar la sala");
         } finally {
             try {
                 con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrar conexión: " + e.getMessage());
+                throw new SQLException("Error al cerrar la conexion");
             }
-        }
-        return false;
-    }
 
+        }
+    }
     @Override
-    public boolean eliminar(Sala sala) {
+    public boolean eliminar(Sala sala) throws SQLException {
         PreparedStatement ps;
         Connection con = null;
         try {
@@ -184,16 +185,15 @@ public class SalaDAO implements IGenericDAO<Sala> {
             ps.setInt(1, sala.getIdSala());
             ps.execute();
             return true;
-        } catch (SQLException e) {
-            System.out.println("Error al eliminar la sala: " + e.getMessage());
+        } catch (Exception e) {
+            throw new SQLException("Error al eliminar la sala .");
         } finally {
             try {
                 con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrar conexión: " + e.getMessage());
+                throw new SQLException("Error al cerrar la conexion");
             }
         }
-        return false;
     }
 /*
     public static void main(String[] args) {
